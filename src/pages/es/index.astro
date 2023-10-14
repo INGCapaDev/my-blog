@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import HomePagination from '@components/HomePaginationES.astro';
+import Base from '@layouts/BaseES.astro';
+import Posts from '@layouts/PostsES.astro';
+
+const posts = (await getCollection('blogES')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Base>
+  <Posts posts={posts} />
+  <HomePagination />
+</Base>

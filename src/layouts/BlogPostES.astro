@@ -1,14 +1,14 @@
 ---
-import Base from '@layouts/Base.astro';
+import Base from '@layouts/BaseES.astro';
 import type { CollectionEntry } from 'astro:content';
-import FormattedDate from '@components/FormattedDate.astro';
+import FormattedDate from '@components/FormattedDateES.astro';
 import CalendarIcon from '@icons/CalendarIcon.astro';
 import CategoryIcon from '@icons/CategoryIcon.astro';
 import { Image } from 'astro:assets';
-import config from '@config/config.json';
+import config from '@config/configES.json';
 import { slugify } from '@utils/slug';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blogES'>['data'];
 
 const { title, description, pubDate, heroImage, categories, tags } = Astro.props;
 ---
@@ -57,7 +57,7 @@ const { title, description, pubDate, heroImage, categories, tags } = Astro.props
           <CategoryIcon />
           {
             categories?.slice(0, 1).map((category) => (
-              <a href={`/categories/${slugify(category)}`} class="hover:text-primary mr-2 font-medium capitalize">
+              <a href={`/es/categories/${slugify(category)}`} class="hover:text-primary mr-2 font-medium capitalize">
                 {category}
               </a>
             ))
@@ -72,7 +72,7 @@ const { title, description, pubDate, heroImage, categories, tags } = Astro.props
       {
         tags?.map((tag) => (
           <a
-            href={`/tags/${slugify(tag)}`}
+            href={`/es/tags/${slugify(tag)}`}
             class="mb-2 mr-2 inline-block rounded-full bg-zinc-200 px-3 py-1 text-sm font-semibold capitalize text-zinc-700 dark:bg-zinc-900 dark:text-zinc-400"
           >
             #{tag}

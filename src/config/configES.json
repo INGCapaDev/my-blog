@@ -1,0 +1,25 @@
+{
+  "site": {
+    "title": "INGCapaDev",
+    "base_url": "https://ingcapadev.vercel.app",
+    "base_path": "/",
+    "favicon": "/favicon.png",
+    "logo": "https://s3.amazonaws.com/gndx.dev/ev0-astro-logo.png",
+    "lang": "en",
+    "description": "My blog personal",
+    "pageSize": 6
+  },
+  "features": {
+    "youtube": false,
+    "dark_mode": true
+  },
+  "metadata": {
+    "meta_author": "Alvaro Capaceta",
+    "meta_description": "Bienvenido a mi blog personal donde comparto mis experiencias y conocimientos sobre desarrollo web, productividad y otros temas interesantes."
+  },
+  "author": {
+    "name": "Alvaro Capaceta Magallanes",
+    "avatar": "/me.jpg",
+    "bio": "Bienvenido a mi blog personal donde comparto mis experiencias y conocimientos sobre desarrollo web, productividad y otros temas interesantes."
+  }
+}

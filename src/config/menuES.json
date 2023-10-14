@@ -1,0 +1,24 @@
+{
+  "main": [
+    {
+      "name": "Home",
+      "url": "/es"
+    },
+    {
+      "name": "Sobre mí",
+      "url": "/es/about"
+    },
+    {
+      "name": "Etiquetas",
+      "url": "/es/tags"
+    },
+    {
+      "name": "Categorías",
+      "url": "/es/categories"
+    },
+    {
+      "name": "Sitio web",
+      "url": "https://ingcapadev.netlify.app/"
+    }
+  ]
+}

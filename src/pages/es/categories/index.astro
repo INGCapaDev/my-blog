@@ -1,16 +1,16 @@
 ---
-import Base from '@layouts/Base.astro';
+import Base from '@layouts/BaseES.astro';
 import CategoryIcon from '@icons/CategoryIcon.astro';
 import { getTaxonomy } from '@utils/getAllTags';
 
-const _categories = await getTaxonomy('blog', 'categories');
+const _categories = await getTaxonomy('blogES', 'categories');
 const uniqueCategories = [...new Set(_categories.map((category) => category.name))];
 const categories = uniqueCategories.map((name) => _categories.find((category) => category.name === name));
 ---
 
 <Base>
   <section class="grid grid-cols-1">
-    <h1 class="mb-8 text-2xl font-bold md:text-3xl">Categories:</h1>
+    <h1 class="mb-8 text-2xl font-bold md:text-3xl">Categorias:</h1>
     <ul class="flex flex-wrap gap-3 text-zinc-500 dark:text-zinc-400">
       {
         categories.map((category) => (
@@ -18,7 +18,7 @@ const categories = uniqueCategories.map((name) => _categories.find((category) =>
             <CategoryIcon />
             <a
               class="text-lg capitalize text-zinc-500 hover:text-zinc-800 dark:text-zinc-400"
-              href={`/categories/${category.slug}`}
+              href={`/es/categories/${category.slug}`}
               title={`View posts with the tag: ${category.name}`}
             >
               {category.name}

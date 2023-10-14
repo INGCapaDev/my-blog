@@ -1,12 +1,13 @@
 ---
 import { Image } from 'astro:assets';
-import menu from '@config/menu.json';
-import config from '@config/config.json';
+import menu from '@config/menuES.json';
+import config from '@config/configES.json';
 import HamburgerIcon from '@icons/HamburgerIcon.astro';
 import CloseIcon from '@icons/CloseIcon.astro';
 import HomeIcon from '@icons/HomeIcon.astro';
 import ThemeIcon from '@components/ThemeIcon.astro';
-import LanguageIcon from '@components/LanguageIcon.astro';
+import LanguageIcon from './LanguageIconES.astro';
+
 export interface NavigationLink {
   name: string;
   url: string;
@@ -18,7 +19,7 @@ const { main }: { main: NavigationLink[] } = menu;
 <header class="bg-zinc-50 dark:bg-zinc-900">
   <div class="mx-auto max-w-screen-lg px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
     <div class="flex items-start justify-between gap-2 sm:gap-4 md:items-center">
-      <a href="/" class="logo flex items-center" aria-current="page">
+      <a href="/es" class="logo flex items-center" aria-current="page">
         <figure>
           <Image
             src={config.site.logo}

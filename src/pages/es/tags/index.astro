@@ -1,8 +1,8 @@
 ---
-import Base from '@layouts/Base.astro';
+import Base from '@layouts/BaseES.astro';
 import { getTaxonomy } from '@utils/getAllTags';
 
-const _tags = await getTaxonomy('blog', 'tags');
+const _tags = await getTaxonomy('blogES', 'tags');
 const uniqueTags = [...new Set(_tags.map((tag) => tag.name))];
 const tags = uniqueTags.map((tag) => {
   const slug = tag.toLowerCase().replace(/\s/g, '-');
@@ -28,15 +28,15 @@ const getRandomClass = (classList: string[]): string => {
 
 <Base>
   <section class="grid grid-cols-1">
-    <h1 class="mb-8 text-2xl font-bold md:text-3xl">Tags:</h1>
+    <h1 class="mb-8 text-2xl font-bold md:text-3xl">Etiquetas:</h1>
     <ul class="align-center flex flex-wrap justify-center gap-3">
       {
         tags.map((tag) => (
           <li>
             <a
               class={getRandomClass(textClasses)}
-              href={`/tags/${tag.slug}`}
-              title={`View posts with the tag: ${tag.name}`}
+              href={`/es/tags/${tag.slug}`}
+              title={`Ver publicaciones con esta etiqueta: ${tag.name}`}
             >
               {tag.name}
             </a>
