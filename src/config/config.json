@@ -1,25 +1,25 @@
 {
   "site": {
-    "title": "EV0 ",
-    "base_url": "https://ev0.gndx.io",
+    "title": "INGCapaDev",
+    "base_url": "https://ingcapadev.vercel.app",
     "base_path": "/",
     "favicon": "/favicon.png",
     "logo": "https://s3.amazonaws.com/gndx.dev/ev0-astro-logo.png",
     "lang": "en",
-    "description": "EV0 is a free and open-source serverless blog template, built with Astro, Tailwind CSS, and TypeScript.",
+    "description": "My personal blog",
     "pageSize": 6
   },
   "features": {
-    "youtube": true,
+    "youtube": false,
     "dark_mode": true
   },
   "metadata": {
-    "meta_author": "Oscar Barajas @gndx",
-    "meta_description": "EV0 is a free and open-source serverless blog template, built with Astro, Tailwind CSS, and TypeScript."
+    "meta_author": "Alvaro Capaceta",
+    "meta_description": "Welcome to my personal blog where I share my experiences and knowledge about web development, productivity and other interesting topics."
   },
   "author": {
-    "name": "Oscar Barajas Tavares @gndx",
-    "avatar": "https://s3.amazonaws.com/gndx.dev/gndx-astro-avatar.png",
-    "bio": "EV0 is a free and open-source serverless blog template, built with Astro, Tailwind CSS, and TypeScript."
+    "name": "Alvaro Capaceta Magallanes",
+    "avatar": "/me.jpg",
+    "bio": "Welcome to my personal blog where I share my experiences and knowledge about web development, productivity and other interesting topics."
   }
 }

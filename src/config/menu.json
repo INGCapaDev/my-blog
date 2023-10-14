@@ -15,6 +15,10 @@
     {
       "name": "Categories",
       "url": "/categories"
+    },
+    {
+      "name": "Website",
+      "url": "https://ingcapadev.netlify.app/"
     }
   ]
 }
