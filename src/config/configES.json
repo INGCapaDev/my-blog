@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "INGCapaDev",
-    "base_url": "https://ingcapadev.vercel.app",
+    "base_url": "https://blog.ingcapadev.com",
     "base_path": "/es",
     "favicon": "/favicon.png",
     "logo": "https://s3.amazonaws.com/gndx.dev/ev0-astro-logo.png",
