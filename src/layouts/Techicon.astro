@@ -1,0 +1,10 @@
+---
+const { bgColor, title, path } = Astro.props;
+---
+
+<div class=`w-full rounded-xl p-3 ${bgColor}`>
+  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="fill-zinc-800 dark:fill-zinc-300">
+    <title>{title}</title>
+    <path d={path}></path></svg
+  >
+</div>

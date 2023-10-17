@@ -2,10 +2,10 @@
   "site": {
     "title": "INGCapaDev",
     "base_url": "https://ingcapadev.vercel.app",
-    "base_path": "/",
+    "base_path": "/es",
     "favicon": "/favicon.png",
     "logo": "https://s3.amazonaws.com/gndx.dev/ev0-astro-logo.png",
-    "lang": "en",
+    "lang": "es",
     "description": "My blog personal",
     "pageSize": 6
   },
