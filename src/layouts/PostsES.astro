@@ -29,9 +29,9 @@ type PostType = {
       <article class="flex w-full flex-col items-start">
         <div class="mb-4 block overflow-hidden rounded-lg">
           {post.data.heroImage && (
-            <figure class="h-auto w-auto object-cover md:h-[150px]">
+            <figure class="h-auto w-auto bg-[url('/blog-placeholder.jpg')] bg-cover object-cover md:h-[150px]">
               <Image
-                class="cursor-progress transition duration-300 ease-in-out hover:scale-110"
+                class="cursor-progress  transition duration-300 ease-in-out hover:scale-110 hover:cursor-default"
                 src={post.data.heroImage}
                 alt={post.data.title}
                 width={960}

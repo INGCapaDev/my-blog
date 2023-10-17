@@ -18,7 +18,7 @@ const { title, description, pubDate, heroImage, categories, tags } = Astro.props
     <div class="mb-8 block overflow-hidden rounded-lg">
       {
         heroImage && (
-          <figure class="h-auto w-auto object-cover md:h-[480px]">
+          <figure class="h-auto w-auto bg-[url('/blog-placeholder.jpg')] bg-cover bg-center object-cover md:h-[480px]">
             <Image
               class="cursor-progress transition duration-300 ease-in-out hover:scale-110"
               src={heroImage}
