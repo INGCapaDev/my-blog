@@ -5,7 +5,9 @@ import { getTaxonomy } from '@utils/getAllTags';
 
 const _categories = await getTaxonomy('blog', 'categories');
 const uniqueCategories = [...new Set(_categories.map((category) => category.name))];
-const categories = uniqueCategories.map((name) => _categories.find((category) => category.name === name));
+const categories = uniqueCategories.map((name) =>
+  _categories.find((category) => category.name === name)
+) as typeof _categories;
 ---
 
 <Base>

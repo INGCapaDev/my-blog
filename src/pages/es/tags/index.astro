@@ -4,10 +4,7 @@ import { getTaxonomy } from '@utils/getAllTags';
 
 const _tags = await getTaxonomy('blogES', 'tags');
 const uniqueTags = [...new Set(_tags.map((tag) => tag.name))];
-const tags = uniqueTags.map((tag) => {
-  const slug = tag.toLowerCase().replace(/\s/g, '-');
-  return { name: tag, slug };
-});
+const tags = uniqueTags.map((name) => _tags.find((tag) => tag.name === name)) as typeof _tags;
 
 const textClasses: string[] = [
   'text-3xl text-cyan-400 capitalize',

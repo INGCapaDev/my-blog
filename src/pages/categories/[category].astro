@@ -23,7 +23,7 @@ const filterByCategory = taxonomyFilter(posts, 'categories', category);
 ---
 
 <Base>
-  <h1 class="mb-8 text-2xl font-bold capitalize md:text-3xl">Category: {deslugify(category)}</h1>
+  <h1 class="mb-8 text-2xl font-bold capitalize md:text-3xl">Category: {deslugify(category as string)}</h1>
   <ul class="ml-4 space-y-4 text-left text-zinc-500 dark:text-zinc-400 dark:text-zinc-400">
     {
       filterByCategory?.map((post) => (
