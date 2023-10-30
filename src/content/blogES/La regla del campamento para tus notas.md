@@ -1,5 +1,5 @@
 ---
-title: The "Regla del Campamento" para tus notas
+title: La "Regla del Campamento" para tus notas
 description: Optimiza tus notas utilizando la "Regla del Campamento", para convertirlas en un recurso mas valioso y util a futuro.
 pubDate: 2023-10-30
 heroImage: https://images.pexels.com/photos/2516423/pexels-photo-2516423.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
