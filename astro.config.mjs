@@ -5,6 +5,7 @@ import Compress from 'astro-compress';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 import { VitePWA } from 'vite-plugin-pwa';
+import partytown from '@astrojs/partytown';
 
 import { manifest } from './src/utils/manifest';
 
@@ -22,6 +23,11 @@ export default defineConfig({
     },
   },
   integrations: [
+    partytown({
+      config: {
+        foward: ['dataLayer.push'],
+      },
+    }),
     mdx({
       syntaxHighlight: 'shiki',
       shikiConfig: {
