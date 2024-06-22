@@ -1,6 +1,11 @@
 # 🚀 INGCapaDev Personal Blog
 
-This is a personal blog where I share my experiences and knowledge about web development, productivity and other interesting topics.built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com) inspired in a @gndx template. It's designed to be minimal, fast, and SEO-friendly. It's also fully responsive and supports dark mode.
+This is a personal blog where I share my experiences and knowledge about web development, productivity and other interesting topics, built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com) inspired in a @gndx template. It's designed to be minimal, fast, and SEO-friendly. It's also fully responsive and supports dark mode.
+
+## Preview
+
+![Personal Blog Preview](https://github.com/INGCapaDev/my-blog/assets/114124075/8599c05e-83eb-43ed-8196-2ea7736132ae)
+
 
 ## 🔥 Features
 
@@ -21,6 +26,8 @@ This is a personal blog where I share my experiences and knowledge about web dev
 - ✅ CLI for adding new posts
 
 ## ⚓ Lighthouse Score 100/100
+
+![Lighthouse Score](https://github.com/INGCapaDev/my-blog/assets/114124075/5ca70bac-c833-4aef-973c-4c23ed071aae)
 
 ## 🚀 Getting Started
 
