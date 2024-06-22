@@ -18,7 +18,8 @@
     },
     {
       "name": "Website",
-      "url": "https://ingcapadev.com"
+      "url": "https://ingcapadev.com",
+      "target": "_blank"
     }
   ]
 }
