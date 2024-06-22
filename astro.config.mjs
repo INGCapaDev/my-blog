@@ -1,11 +1,11 @@
-import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import partytown from '@astrojs/partytown';
+import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import Compress from 'astro-compress';
-import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
+import { defineConfig, squooshImageService } from 'astro/config';
 import { VitePWA } from 'vite-plugin-pwa';
-import partytown from '@astrojs/partytown';
 
 import { manifest } from './src/utils/manifest';
 
@@ -14,6 +14,11 @@ export default defineConfig({
   site: 'https://blog.ingcapadev.com/',
   image: {
     remotePatterns: [{ protocol: 'https' }],
+    service: squooshImageService({
+      webp: {
+        quality: 75,
+      },
+    }),
   },
   markdown: {
     drafts: true,
