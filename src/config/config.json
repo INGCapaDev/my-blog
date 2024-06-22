@@ -4,7 +4,7 @@
     "base_url": "https://blog.ingcapadev.com",
     "base_path": "/",
     "favicon": "/favicon.png",
-    "logo": "https://s3.amazonaws.com/gndx.dev/ev0-astro-logo.png",
+    "logo": "/logo_ingcapadev.webp",
     "lang": "en",
     "description": "My personal blog",
     "pageSize": 6
