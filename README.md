@@ -1,3 +1,7 @@
+# 🚀 INGCapaDev Personal Blog
+
+This is a personal blog where I share my experiences and knowledge about web development, productivity and other interesting topics.built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com) inspired in a @gndx template. It's designed to be minimal, fast, and SEO-friendly. It's also fully responsive and supports dark mode.
+
 ## 🔥 Features
 
 - ✅ Minimal styling (Tailwind CSS)
@@ -16,26 +20,24 @@
 - ✅ YouTube Integration
 - ✅ CLI for adding new posts
 
-## ⚓ Lighthouse Score - PWA Ready
-
-<p align="center">
-  <img align="center" alt="Lighthouse Score" src="https://s3.amazonaws.com/gndx.dev/EV0-astro-theme-lighthouse.png"/>
-</p>
+## ⚓ Lighthouse Score 100/100
 
 ## 🚀 Getting Started
 
 Clone this repository to your local machine using Git.
 
-| Command           | Action                                       |
-| :---------------- | :------------------------------------------- |
-| `npm install`     | Installs dependencies                        |
-| `npm run dev`     | Starts local dev server at `localhost:4321`  |
-| `npm run build`   | Build your production site to `./dist/`      |
-| `npm run preview` | Preview your build locally, before deploying |
-| `npm run youtube` | Fetches the Latest YouTube Channel Videos    |
-| `npm run newpost` | Generate a New Blogpost Markdown Entry       |
+| Command        | Action                                       |
+| :------------- | :------------------------------------------- |
+| `pnpm install` | Installs dependencies                        |
+| `pnpm dev`     | Starts local dev server at `localhost:4321`  |
+| `pnpm build`   | Build your production site to `./dist/`      |
+| `pnpm preview` | Preview your build locally, before deploying |
 
 Edit the HTML files in the `src/pages` directory to add your projects, experiences, and personal information.
+
+## ✨ Credits & Thanks
+
+Inspired by [gndx](https://github.com/gndx) EV0 Astro Theme - Blog Template
 
 ## 📃 License
 
