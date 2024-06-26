@@ -31,6 +31,20 @@ const ogImage = createOgImage({
 <!doctype html>
 <html lang={config.site.lang}>
   <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-KP6DTBHJ');
+    </script>
+    <!-- End Google Tag Manager -->
     <!-- favicon -->
     <link rel='shortcut icon' href={config.site.favicon} />
     <link rel='icon' href={config.site.favicon} />
@@ -83,6 +97,15 @@ const ogImage = createOgImage({
     <ViewTransitions />
   </head>
   <body class='bg-white dark:bg-zinc-900/95'>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src='https://www.googletagmanager.com/ns.html?id=GTM-KP6DTBHJ'
+        height='0'
+        width='0'
+        style='display:none;visibility:hidden'></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
     <Header />
     {!blogpost && <Hero />}
     <main class='mx-auto max-w-screen-lg px-4 py-8 sm:px-6 sm:py-12 lg:px-8'>
