@@ -1,8 +1,8 @@
 ---
-title: 'Preparación + Constancia: El Método que Uso para Asegurar un Día Productivo'
+title: "Preparación + Constancia: El Método que Uso para Asegurar un Día Productivo"
 description: ¿Sabías que un día productivo comienza la noche anterior? Descubre mi rutina diaria y cómo pequeños hábitos pueden transformar tu enfoque y energía cada día.
 pubDate: 2024-11-26
-heroImage: https://images.pexels.com/photos/3201765/pexels-photo-3201765.jpeg
+heroImage: https://i.ibb.co/ctt5815/mi-rutina-diaria.webp
 categories:
   - Productivity
 tags:
@@ -10,7 +10,6 @@ tags:
   - Productivity
   - Habits
 ---
-
 **Mi día no comienza cuando me despierto, sino la noche anterior 🌙**
 
 En este artículo, quiero hablarte de cómo mi preparación la noche anterior ha transformado mi productividad. Los expertos dicen que el 90% de las personas exitosas tienen una rutina diaria bien definida, y esta estructura puede marcar la diferencia en nuestros días. A través de mi experiencia, quiero compartir la rutina que me funciona y que me ha ayudado a tener días realmente productivos.
