@@ -1,8 +1,8 @@
 ---
-title: "Preparation + Consistency: The Method I Use to Ensure a Productive Day"
+title: 'Preparation + Consistency: The Method I Use to Ensure a Productive Day'
 description: Did you know that a productive day begins the night before? Discover my daily routine and how small habits can transform your focus and energy every day.
 pubDate: 2024-11-26
-heroImage: https://i.ibb.co/ctt5815/mi-rutina-diaria.webp
+heroImage: https://images.pexels.com/photos/3201765/pexels-photo-3201765.jpeg
 categories:
   - Productivity
 tags:
@@ -10,6 +10,7 @@ tags:
   - Productivity
   - Habits
 ---
+
 **My Day Doesn't Start When I Wake Up, But the Night Before 🌙**
 
 In this article, I want to share how my nighttime preparation has transformed my productivity. Experts say that 90% of successful people have a well-defined daily routine, and this structure can make a real difference in our days. Through my experience, I’d like to share the routine that works for me and has helped me achieve truly productive days.
@@ -20,7 +21,7 @@ In this article, I want to share how my nighttime preparation has transformed my
 
 One of the keys to my productivity is in the night before. Starting at 9:00 p.m., I stop using any device with a screen: no smartphone, no computer, no distractions. This is my cue to unplug. I usually take a shower, wash my face, brush my teeth, and put on my sleepwear. This small ritual signals my mind that it’s time to relax and prepare for rest.
 
-At 9:30 p.m., I turn off almost all lights, leaving only a bedside lamp. I get into bed and read a physical book, avoiding the stimulation of screens, which tend to keep the brain alert. I choose something light, usually fiction or something that doesn’t require much focus. Right now, I'm reading *The Hobbit* by J.R.R. Tolkien. By 10:00 p.m., I’m asleep, ready to start the next day with full energy. Sleeping well is a **non-negotiable** in my routine because, at 5:30 a.m., my day begins. Without adequate rest, it’s tough to stay productive.
+At 9:30 p.m., I turn off almost all lights, leaving only a bedside lamp. I get into bed and read a physical book, avoiding the stimulation of screens, which tend to keep the brain alert. I choose something light, usually fiction or something that doesn’t require much focus. Right now, I'm reading _The Hobbit_ by J.R.R. Tolkien. By 10:00 p.m., I’m asleep, ready to start the next day with full energy. Sleeping well is a **non-negotiable** in my routine because, at 5:30 a.m., my day begins. Without adequate rest, it’s tough to stay productive.
 
 ## A Productive Morning 🌅
 
