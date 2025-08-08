@@ -66,7 +66,7 @@ Tu asistente de IA es tu equipo. Te permite operar al más alto nivel.
 
 ## 📝 Como construir tu propio asistente AI
 
-> [!IMPORTANT] NOTA IMPORTANTE
+> NOTA IMPORTANTE
 > Antes de comenzar me gustaria aclarar que este agente esta muy enfocado a mi
 > caso de uso, un asistente para mi LinkedIn que mantenga una consistencia en mi marca personal, y
 > me permite enfocarme en las IDEAS, mas que en la estructura del post o que 
@@ -78,7 +78,7 @@ tu voz y tus objetivos.
 Lo esencial es que el asistente refleje **tu forma unica de hacer las cosas**.
 
 
-> [!TIP] ADAPTA ESTE SISTEMA A CUALQUIER TAREA 
+>  ADAPTA ESTE SISTEMA A CUALQUIER TAREA 
 > Aunque este ejemplo este enfocado a LinkedIn, puedes usar esta misma estructura
 > para crear un agente que te ayude con tu caso de uso, escribir correos, documentar 
 > proyectos, generar ideas para videos, lo que sea, los resultados seran igual de sorprendentes

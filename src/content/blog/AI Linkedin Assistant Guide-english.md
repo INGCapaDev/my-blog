@@ -66,7 +66,7 @@ Your AI assistant *is* your team. It lets you operate at the highest level.
 
 ## 📝 How to build your own AI assistant
 
-> [!IMPORTANT] IMPORTANT NOTE  
+> IMPORTANT NOTE  
 > Before we begin, let me clarify that this agent is tailored to my use case:  
 > a LinkedIn assistant that helps me maintain consistency in my personal brand,  
 > and lets me focus on the IDEAS rather than the post structure or  
@@ -77,7 +77,7 @@ Use it as a blueprint and adapt it to your case,
 create a system that fits your style, your voice, your goals.  
 What matters is that the assistant reflects **your unique way of doing things**.
 
-> [!TIP] ADAPT THIS SYSTEM TO ANY TASK  
+> ADAPT THIS SYSTEM TO ANY TASK  
 > Although this example focuses on LinkedIn, you can use the same structure  
 > to create an agent that helps you write emails, document projects, generate  
 > video ideas and whatever your use case is, the results will be just as powerful.
