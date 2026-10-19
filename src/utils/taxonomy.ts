@@ -1,6 +1,7 @@
 import type { Locale } from '@config/locales';
 import { getPostEntries, type Post } from './posts';
 import { deslugify, slugify } from './slug';
+import { getLocaleParams } from './localized-path';
 
 export type Taxonomy = 'tags' | 'categories';
 
@@ -29,7 +30,7 @@ export async function getTaxonomyPages(locale: Locale, taxonomy: Taxonomy) {
   const parameter = taxonomy === 'tags' ? 'tag' : 'category';
 
   return terms.map((term) => ({
-    params: { [parameter]: term.slug },
+    params: { ...getLocaleParams(locale), [parameter]: term.slug },
     props: {
       locale,
       taxonomy,

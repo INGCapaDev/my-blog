@@ -1,5 +1,3 @@
-import englishConfig from './config.json';
-import spanishConfig from './configES.json';
 import type { ContentCollectionKey } from 'astro:content';
 
 interface LocaleConfig {
@@ -7,7 +5,9 @@ interface LocaleConfig {
   name: string;
   websiteUrl: string;
   dateLocale: string;
-  collection: ContentCollectionKey;
+  collection: Exclude<ContentCollectionKey, 'about'>;
+  about: string;
+  siteDescription: string;
   ogLocale: string;
   description: string;
   faviconRels: string[];
@@ -21,8 +21,11 @@ export const locales = {
     websiteUrl: 'https://ingcapadev.com',
     dateLocale: 'en-us',
     collection: 'blog',
-    ogLocale: englishConfig.metadata.locale,
-    description: englishConfig.metadata.meta_description,
+    about: 'en',
+    siteDescription: 'My personal blog',
+    ogLocale: 'en_US',
+    description:
+      'Welcome to my personal blog where I share my experiences and knowledge about web development, productivity and other interesting topics.',
     faviconRels: ['shortcut icon', 'icon'],
     googleTagManager: true,
   },
@@ -32,8 +35,11 @@ export const locales = {
     websiteUrl: 'https://ingcapadev.com/es',
     dateLocale: 'es-mx',
     collection: 'blogES',
-    ogLocale: spanishConfig.metadata.locale,
-    description: spanishConfig.metadata.meta_description,
+    about: 'es',
+    siteDescription: 'Mi blog personal',
+    ogLocale: 'es_MX',
+    description:
+      'Bienvenido a mi blog personal donde comparto mis experiencias y conocimientos sobre desarrollo web, productividad y otros temas interesantes.',
     faviconRels: ['shortcut icon'],
     googleTagManager: false,
   },
@@ -41,4 +47,6 @@ export const locales = {
 
 export type Locale = keyof typeof locales;
 
+export const defaultLocale = 'en' satisfies Locale;
 export const supportedLocales = Object.keys(locales) as Locale[];
+export const nonDefaultLocales = supportedLocales.filter((locale) => locale !== defaultLocale);

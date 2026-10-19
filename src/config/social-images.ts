@@ -1,3 +1,5 @@
+import type { Locale } from './locales';
+
 export interface SocialImage {
   path: string;
   alt: string;
@@ -5,4 +7,4 @@ export interface SocialImage {
   height: number;
 }
 
-export const socialImages: { en?: SocialImage; es?: SocialImage } = {};
+export const socialImages: Partial<Record<Locale, SocialImage>> = {};

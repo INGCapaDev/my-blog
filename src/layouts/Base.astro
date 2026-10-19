@@ -137,8 +137,14 @@ const articleSchema = getArticleSchema();
       )
     }
 
-    <script is:inline src="/registerSW.js"></script>
-    <link rel="manifest" href="/manifest.webmanifest" />
+    {
+      import.meta.env.PROD && (
+        <>
+          <script is:inline src="/registerSW.js" />
+          <link rel="manifest" href="/manifest.webmanifest" />
+        </>
+      )
+    }
     <ViewTransitions />
   </head>
   <body class="flex min-h-screen flex-col bg-white dark:bg-zinc-900">
@@ -158,7 +164,7 @@ const articleSchema = getArticleSchema();
     <main class="mx-auto w-full max-w-[calc(65ch+3rem)] flex-1 px-6 py-10 sm:py-16">
       <slot />
     </main>
-    {!blogpost && config.features.youtube && <FeaturedVideos />}
+    {!blogpost && config.features.youtube && <FeaturedVideos locale={locale} />}
     <Footer locale={locale} />
     <script>
       // This is a hack to get vite-plugin-pwa to generate a sw.js file.

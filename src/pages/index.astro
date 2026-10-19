@@ -1,8 +1,9 @@
 ---
 import Home from '@layouts/Home.astro';
+import { defaultLocale } from '@config/locales';
 import { getPosts } from '@utils/posts';
 
-const posts = await getPosts('en');
+const posts = await getPosts(defaultLocale);
 ---
 
-<Home locale="en" posts={posts} />
+<Home locale={defaultLocale} posts={posts} />

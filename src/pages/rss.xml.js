@@ -1,12 +1,13 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
 import config from '@config/config.json';
+import { defaultLocale, locales } from '@config/locales';
+import { getPostEntries } from '@utils/posts';
 
 export async function GET(context) {
-  const posts = await getCollection('blog');
+  const posts = await getPostEntries(defaultLocale);
   return rss({
     title: config.site.title,
-    description: config.site.description,
+    description: locales[defaultLocale].siteDescription,
     site: context.site,
     items: posts.map((post) => ({
       ...post.data,

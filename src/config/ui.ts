@@ -20,6 +20,7 @@ interface UiDictionary {
   themeToggle: string;
   rssTitle: string;
   blogTitle: string;
+  featuredVideosTitle: string;
   taxonomy: Record<Taxonomy, TaxonomyLabels>;
   pagination: {
     previous: string;
@@ -45,6 +46,7 @@ export const ui = {
     themeToggle: 'Theme Toggle',
     rssTitle: 'RSS (English)',
     blogTitle: 'Blog',
+    featuredVideosTitle: 'Latest videos on YouTube:',
     taxonomy: {
       tags: {
         title: 'Tags:',
@@ -79,6 +81,7 @@ export const ui = {
     themeToggle: 'Theme Toggle',
     rssTitle: 'RSS (inglés)',
     blogTitle: 'Blog',
+    featuredVideosTitle: 'Latest videos on YouTube:',
     taxonomy: {
       tags: {
         title: 'Etiquetas:',

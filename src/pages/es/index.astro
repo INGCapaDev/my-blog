@@ -1,8 +1,0 @@
----
-import Home from '@layouts/Home.astro';
-import { getPosts } from '@utils/posts';
-
-const posts = await getPosts('es');
----
-
-<Home locale="es" posts={posts} />

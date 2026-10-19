@@ -1,22 +1,14 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
-
-import BlogPost from "@layouts/BlogPost.astro";
-import Code from "@components/mdx/Code.astro";
+import type { InferGetStaticPropsType } from 'astro';
+import BlogPost from '@layouts/BlogPost.astro';
+import { defaultLocale } from '@config/locales';
+import { getArticlePages } from '@utils/posts';
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+  return getArticlePages(defaultLocale);
 }
-type Props = CollectionEntry<"blog">;
 
-const post = Astro.props;
-const { Content } = await post.render();
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 ---
 
-<BlogPost {...post.data} locale="en">
-  <Content components={{ pre: Code }} />
-</BlogPost>
+<BlogPost {...Astro.props} />

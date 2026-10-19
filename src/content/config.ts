@@ -13,4 +13,10 @@ const postSchema = z.object({
 export const collections = {
   blog: defineCollection({ schema: postSchema }),
   blogES: defineCollection({ schema: postSchema }),
+  about: defineCollection({
+    schema: z.object({
+      title: z.string(),
+      metaTitle: z.string(),
+    }),
+  }),
 };

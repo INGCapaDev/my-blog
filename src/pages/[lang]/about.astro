@@ -1,0 +1,10 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import About from '@layouts/About.astro';
+import { getLocalePaths } from '@utils/localized-path';
+
+export const getStaticPaths = getLocalePaths;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+---
+
+<About {...Astro.props} />

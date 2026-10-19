@@ -9,10 +9,16 @@ import config from '@config/config.json';
 import type { Locale } from '@config/locales';
 import { localizedPath } from '@utils/localized-path';
 import { slugify } from '@utils/slug';
+import Code from '@components/mdx/Code.astro';
 
-type Props = Post['data'] & { locale: Locale };
+interface Props {
+  post: Post;
+  locale: Locale;
+}
 
-const { locale, title, description, pubDate, updatedDate, categories, tags } = Astro.props;
+const { locale, post } = Astro.props;
+const { title, description, pubDate, updatedDate, categories, tags } = post.data;
+const { Content } = await post.render();
 ---
 
 <Base locale={locale} meta_title={title} description={description} pubDate={pubDate} updatedDate={updatedDate} blogpost>
@@ -54,7 +60,7 @@ const { locale, title, description, pubDate, updatedDate, categories, tags } = A
       </div>
     </div>
     <div class="prose prose-zinc max-w-none dark:prose-invert">
-      <slot />
+      <Content components={{ pre: Code }} />
     </div>
     <div class="mt-8">
       {

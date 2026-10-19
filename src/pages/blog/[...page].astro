@@ -1,10 +1,11 @@
 ---
 import type { GetStaticPathsOptions, InferGetStaticPropsType } from 'astro';
 import BlogListing from '@layouts/BlogListing.astro';
+import { defaultLocale } from '@config/locales';
 import { getPostPages } from '@utils/posts';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  return getPostPages('en', paginate);
+  return getPostPages(defaultLocale, paginate);
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;

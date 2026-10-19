@@ -40,7 +40,7 @@ Clone this repository to your local machine using Git.
 | `pnpm build`   | Build your production site to `./dist/`      |
 | `pnpm preview` | Preview your build locally, before deploying |
 
-Edit the HTML files in the `src/pages` directory to add your projects, experiences, and personal information.
+Edit translated posts in their `src/content` collections and About copy in `src/content/about`. Shared presentation lives in `src/layouts` and `src/components`; route files are thin adapters. See [adding a language](docs/adding-a-language.md) for localization ownership and verification.
 
 ## ✨ Credits & Thanks
 

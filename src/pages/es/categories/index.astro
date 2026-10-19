@@ -1,8 +1,0 @@
----
-import TaxonomyIndex from '@layouts/TaxonomyIndex.astro';
-import { getTaxonomy } from '@utils/taxonomy';
-
-const terms = await getTaxonomy('es', 'categories');
----
-
-<TaxonomyIndex locale="es" taxonomy="categories" terms={terms} />

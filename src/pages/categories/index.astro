@@ -1,8 +1,9 @@
 ---
 import TaxonomyIndex from '@layouts/TaxonomyIndex.astro';
+import { defaultLocale } from '@config/locales';
 import { getTaxonomy } from '@utils/taxonomy';
 
-const terms = await getTaxonomy('en', 'categories');
+const terms = await getTaxonomy(defaultLocale, 'categories');
 ---
 
-<TaxonomyIndex locale="en" taxonomy="categories" terms={terms} />
+<TaxonomyIndex locale={defaultLocale} taxonomy="categories" terms={terms} />
