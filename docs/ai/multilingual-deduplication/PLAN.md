@@ -110,12 +110,22 @@ Evidence (2026-10-19):
 
 ### S3 — Shared post discovery and pagination
 
-Status: pending
+Status: complete
 Depends on: S2's shared locale-aware layouts.
 
 - Consolidate Posts and Pagination, homepage/archive presentation, and the content queries they need. Register existing blog collections against a shared schema; select collections through locale configuration instead of copied queries.
 - Acceptance: each homepage still shows all 13 corresponding posts, newest first and grouped by year; archives retain six-entry pages and all current pagination URLs. Titles, locale-specific dates, links, and pagination labels are preserved. English and Spanish entries never mix.
 - Verification: compare every homepage/archive link and publication order with the slice baseline; exercise archive boundaries (pages 1, 2, and 3), locale-specific labels, and representative article links. Check shared types/schema and focused lint/format output; verify both viewport sizes.
+
+Evidence (2026-10-19):
+
+- S2 accepted and committed as `4c3c6ef`; S3 started from the resulting clean worktree/index. Added locale-to-collection registration and `src/utils/posts.ts` as the shared newest-first query/pagination owner. The `Post` type derives from the registered collections and is reused by article/listing views. Both existing collections now register one unchanged schema; Markdown files and slugs remain untouched.
+- Shared Home/BlogListing views own homepage/archive presentation. Existing route files are thin locale adapters; Posts and Pagination now take explicit locales. Removed PostsES and PaginationES with no remaining source references. Dictionary entries preserve Blog, Prev Page/Next Page, and Anterior/Siguiente wording. Listing dates retain the original locale code and UTC grouping/formatting; six-entry page size and generated previous/next URLs remain unchanged.
+- Captured before/after browser snapshots of both homepages and all three archive pages per language at widths 390 and 1280 (16 snapshots). Exact comparisons pass for post titles/order/dates, year groups, every main link, pagination labels/destinations/active classes, head metadata, document language, navigation/footer text, and shell geometry.
+- Runtime assertions confirm 13 posts per homepage, newest-first ordering, and archive partitions of 6/6/1 exactly matching the corresponding homepage without cross-language links. Client-side pagination through pages 1→2→3→2→1 passes at both widths/languages, retains the window marker, and highlights the correct page. Representative article clicks retain the matching title/language. Existing About/language/theme browser checks also pass at both widths.
+- Focused TypeScript 5.2.2 checks pass with generated content types included for the registry, dictionaries, shared schema, post query/pagination helpers, and link helper. Focused ESLint passes for all changed owners and route entrypoints. Prettier checks pass for all changed/new files (literal bracketed route paths checked through the Prettier API after CLI glob handling skipped them). `git diff --check` passes. Complete attributable diff and new files inspected against S3 acceptance.
+- Metadata/theme/analytics implementation is unchanged from accepted S2; its applicable edge-case evidence is reused rather than re-running the temporary fixtures. No production build, full Astro typecheck, independent review, or maintained tests added/run. Browser script/snapshots remain outside the repository at `C:\Users\ftaca\AppData\Local\Temp\opencode\multilingual-s1-check.mjs` and `multilingual-s3-{before,after}.json`. S3 remains uncommitted and awaits human acceptance; S4 has not started.
+- Human approved S3's commit and selected `BlogListing.astro` instead of `Archive.astro`, then confirmed “Yes do the changes and then commit”. Renamed the shared view and both route imports without behavior changes. Re-ran all 16 browser parity snapshots, pagination/article navigation and theme checks successfully; focused rename lint/format checks and diff checks pass. No stale Archive source references remain. Prior unchanged schema/type evidence is reused. S3 is accepted with this requested rename; S4 has not started.
 
 ### S4 — Shared tags and categories
 
@@ -140,5 +150,5 @@ Depends on: S1–S4's shared components and locale-aware query/view contracts.
 
 ## Current progress
 
-- Current slice: S3 (pending).
-- Next action: capture homepage/archive baseline and consolidate post discovery and pagination.
+- Current slice: S4 (pending; not started).
+- Next action: await continuation to capture the taxonomy baseline and execute S4.

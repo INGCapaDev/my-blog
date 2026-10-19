@@ -1,11 +1,13 @@
 import englishConfig from './config.json';
 import spanishConfig from './configES.json';
+import type { ContentCollectionKey } from 'astro:content';
 
 interface LocaleConfig {
   prefix: string;
   name: string;
   websiteUrl: string;
   dateLocale: string;
+  collection: ContentCollectionKey;
   ogLocale: string;
   description: string;
   faviconRels: string[];
@@ -18,6 +20,7 @@ export const locales = {
     name: 'English',
     websiteUrl: 'https://ingcapadev.com',
     dateLocale: 'en-us',
+    collection: 'blog',
     ogLocale: englishConfig.metadata.locale,
     description: englishConfig.metadata.meta_description,
     faviconRels: ['shortcut icon', 'icon'],
@@ -28,6 +31,7 @@ export const locales = {
     name: 'Español',
     websiteUrl: 'https://ingcapadev.com/es',
     dateLocale: 'es-mx',
+    collection: 'blogES',
     ogLocale: spanishConfig.metadata.locale,
     description: spanishConfig.metadata.meta_description,
     faviconRels: ['shortcut icon'],

@@ -1,30 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
-import Base from '@layouts/Base.astro';
-import Posts from '@layouts/PostsES.astro';
-import Pagination from '@components/PaginationES.astro';
-import config from '@config/configES.json';
+import type { GetStaticPathsOptions, InferGetStaticPropsType } from 'astro';
+import BlogListing from '@layouts/BlogListing.astro';
+import { getPostPages } from '@utils/posts';
 
-export async function getStaticPaths({ paginate }) {
-  const allPosts = await getCollection('blogES');
-  const formattedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-  return paginate(formattedPosts, {
-    pageSize: config.site.pageSize,
-  });
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  return getPostPages('es', paginate);
 }
-const { page } = Astro.props;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { locale, page } = Astro.props;
 ---
 
-<Base locale="es" meta_title="Blog">
-  <h1 class="mb-8 text-2xl font-bold md:text-3xl">Blog</h1>
-  <Posts posts={page.data} />
-  <Pagination
-    length={page.lastPage}
-    currentUrl={page.url.current}
-    currentPage={page.currentPage}
-    firstUrl={`/es/blog/`}
-    prevUrl={page.url.prev}
-    nextUrl={page.url.next}
-    lastUrl={`/es/blog/${page.lastPage}`}
-  />
-</Base>
+<BlogListing locale={locale} page={page} />

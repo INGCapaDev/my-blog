@@ -12,6 +12,11 @@ interface UiDictionary {
   changeLanguage: string;
   themeToggle: string;
   rssTitle: string;
+  blogTitle: string;
+  pagination: {
+    previous: string;
+    next: string;
+  };
   footer: {
     madeWith: string;
     location: string;
@@ -31,6 +36,11 @@ export const ui = {
     changeLanguage: 'Change Language',
     themeToggle: 'Theme Toggle',
     rssTitle: 'RSS (English)',
+    blogTitle: 'Blog',
+    pagination: {
+      previous: 'Prev Page',
+      next: 'Next Page',
+    },
     footer: {
       madeWith: 'Made with',
       location: 'in Mexico. by',
@@ -48,6 +58,11 @@ export const ui = {
     changeLanguage: 'Cambiar Idioma',
     themeToggle: 'Theme Toggle',
     rssTitle: 'RSS (inglés)',
+    blogTitle: 'Blog',
+    pagination: {
+      previous: 'Anterior',
+      next: 'Siguiente',
+    },
     footer: {
       madeWith: 'Hecho con',
       location: 'en Mexico. por',

@@ -1,12 +1,15 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '@config/locales';
+import { localizedPath } from '@utils/localized-path';
+import type { Post } from '@utils/posts';
 
 interface Props {
-  posts: CollectionEntry<'blog'>[];
+  locale: Locale;
+  posts: Post[];
 }
 
-const { posts } = Astro.props;
-const postsByYear = new Map<number, CollectionEntry<'blog'>[]>();
+const { locale, posts } = Astro.props;
+const postsByYear = new Map<number, Post[]>();
 
 for (const post of posts) {
   const year = post.data.pubDate.getUTCFullYear();
@@ -15,7 +18,7 @@ for (const post of posts) {
   else postsByYear.set(year, [post]);
 }
 
-const dateFormatter = new Intl.DateTimeFormat('en', {
+const dateFormatter = new Intl.DateTimeFormat(locale, {
   month: 'short',
   day: 'numeric',
   timeZone: 'UTC',
@@ -33,7 +36,7 @@ const dateFormatter = new Intl.DateTimeFormat('en', {
           {yearPosts.map((post) => (
             <li>
               <a
-                href={`/blog/${post.slug}/`}
+                href={localizedPath(locale, `/blog/${post.slug}/`)}
                 class="group flex flex-col gap-1 py-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
               >
                 <span class="text-lg font-normal leading-snug text-zinc-800 transition-colors group-hover:text-zinc-500 dark:text-zinc-200 dark:group-hover:text-white">

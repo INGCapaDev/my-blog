@@ -1,6 +1,6 @@
 ---
 import Base from '@layouts/Base.astro';
-import type { CollectionEntry } from 'astro:content';
+import type { Post } from '@utils/posts';
 import FormattedDate from '@components/FormattedDate.astro';
 import CalendarIcon from '@icons/CalendarIcon.astro';
 import CategoryIcon from '@icons/CategoryIcon.astro';
@@ -10,7 +10,7 @@ import type { Locale } from '@config/locales';
 import { localizedPath } from '@utils/localized-path';
 import { slugify } from '@utils/slug';
 
-type Props = CollectionEntry<'blog' | 'blogES'>['data'] & { locale: Locale };
+type Props = Post['data'] & { locale: Locale };
 
 const { locale, title, description, pubDate, updatedDate, categories, tags } = Astro.props;
 ---
