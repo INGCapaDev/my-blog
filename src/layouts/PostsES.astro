@@ -1,68 +1,55 @@
 ---
-import { Image } from 'astro:assets';
-import FormattedDate from '@components/FormattedDateES.astro';
-import config from '@config/configES.json';
-import { slugify } from '@utils/slug';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blogES'>[];
+}
 
 const { posts } = Astro.props;
+const postsByYear = new Map<number, CollectionEntry<'blogES'>[]>();
 
-type PostType = {
-  id: string;
-  slug: string;
-  body: string;
-  collection: string;
-  data: {
-    title: string;
-    description: string;
-    heroImage: string;
-    pubDate: Date;
-    categories: string[];
-    tags: string[];
-    autors: string[];
-  };
-};
+for (const post of posts) {
+  const year = post.data.pubDate.getUTCFullYear();
+  const yearPosts = postsByYear.get(year);
+  if (yearPosts) yearPosts.push(post);
+  else postsByYear.set(year, [post]);
+}
+
+const dateFormatter = new Intl.DateTimeFormat('es', {
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
 ---
 
-<div class="mx-auto grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+<div class="space-y-12">
   {
-    posts?.slice(0, config.site.pageSize).map((post: PostType) => (
-      <article class="flex w-full flex-col items-start">
-        <div class="mb-4 block overflow-hidden rounded-lg">
-          {post.data.heroImage && (
-            <figure class="h-auto w-auto bg-[url('/blog-placeholder.jpg')] bg-cover object-cover md:h-[150px]">
-              <Image
-                class="cursor-progress  transition duration-300 ease-in-out hover:scale-110 hover:cursor-default"
-                src={post.data.heroImage}
-                alt={post.data.title}
-                width={960}
-                height={480}
-                decoding="async"
-                loading="lazy"
-              />
-            </figure>
-          )}
-        </div>
-        <div class="flex items-center gap-x-4 text-xs text-zinc-900 dark:text-white">
-          <FormattedDate date={post.data.pubDate} />
-          {post.data.categories.slice(0, 2).map((item) => (
-            <a
-              href={`/es/categories/${slugify(item)}`}
-              class="text-md relative z-10 rounded-full bg-zinc-50 px-3 py-1.5 font-medium capitalize text-zinc-600 hover:bg-zinc-50 dark:bg-zinc-900 dark:text-zinc-400"
-            >
-              {item}
-            </a>
+    Array.from(postsByYear, ([year, yearPosts]) => (
+      <section aria-labelledby={`year-${year}`}>
+        <h2 id={`year-${year}`} class="mb-5 text-sm font-medium tabular-nums text-zinc-500 dark:text-zinc-400">
+          {year}
+        </h2>
+        <ul class="space-y-5">
+          {yearPosts.map((post) => (
+            <li>
+              <a
+                href={`/es/blog/${post.slug}/`}
+                class="group flex flex-col gap-1 py-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+              >
+                <span class="text-lg font-normal leading-snug text-zinc-800 transition-colors group-hover:text-zinc-500 dark:text-zinc-200 dark:group-hover:text-white">
+                  {post.data.title}
+                </span>
+                <time
+                  datetime={post.data.pubDate.toISOString()}
+                  class="shrink-0 text-sm text-zinc-500 dark:text-zinc-400"
+                >
+                  {dateFormatter.format(post.data.pubDate)}
+                </time>
+              </a>
+            </li>
           ))}
-        </div>
-        <div class="relative">
-          <h2 class="mt-3 text-xl font-semibold leading-6 text-zinc-900 group-hover:text-zinc-600 dark:text-white">
-            <a href={`/es/blog/${post.slug}/`}>
-              <span class="absolute inset-0" />
-              {post.data.title}
-            </a>
-          </h2>
-          <p class="mt-5 line-clamp-3 text-sm leading-6 text-zinc-600">{post.data.description}</p>
-        </div>
-      </article>
+        </ul>
+      </section>
     ))
   }
 </div>

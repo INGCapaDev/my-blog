@@ -2,7 +2,6 @@
 title: 'Deja de olvidar lo que lees: Domina el arte de la lectura activa'
 description: ¿Tienes dificultades para recordar lo que lees? Descubre técnicas simples pero poderosas para involucrarte activamente con tu lectura, retener más conocimiento y hacer que tu tiempo leyendo realmente cuente. Aprende cómo dejar de absorber información de manera pasiva y comienza a retenerla hoy mismo.
 pubDate: 2024-09-23
-heroImage: https://images.pexels.com/photos/10323770/pexels-photo-10323770.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 categories:
   - Knowledge-Management
 tags:

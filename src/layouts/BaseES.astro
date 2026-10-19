@@ -1,6 +1,5 @@
 ---
 import Header from '@components/HeaderES.astro';
-import Hero from '@components/HeroES.astro';
 import FeaturedVideos from '@components/FeaturedVideosES.astro';
 import Footer from '@components/FooterES.astro';
 import config from '@config/configES.json';
@@ -14,7 +13,6 @@ export interface Props {
   title?: string;
   meta_title?: string;
   description?: string;
-  image?: string;
   noindex?: boolean;
   canonical?: string;
   blogpost?: boolean;
@@ -81,10 +79,9 @@ const ogImage = createOgImage({
     <link rel="manifest" href="/manifest.webmanifest" />
     <ViewTransitions />
   </head>
-  <body class="bg-white dark:bg-zinc-900/95">
+  <body class="bg-white dark:bg-zinc-900">
     <Header />
-    {!blogpost && <Hero />}
-    <main class="mx-auto max-w-screen-lg px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <main class="mx-auto w-full max-w-[calc(65ch+3rem)] px-6 py-10 sm:py-16">
       <slot />
     </main>
     {!blogpost && config.features.youtube && <FeaturedVideos />}

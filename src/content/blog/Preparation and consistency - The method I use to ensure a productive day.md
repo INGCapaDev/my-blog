@@ -2,7 +2,6 @@
 title: 'Preparation + Consistency: The Method I Use to Ensure a Productive Day'
 description: Did you know that a productive day begins the night before? Discover my daily routine and how small habits can transform your focus and energy every day.
 pubDate: 2024-11-26
-heroImage: https://images.pexels.com/photos/3201765/pexels-photo-3201765.jpeg
 categories:
   - Productivity
 tags:

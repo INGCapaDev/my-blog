@@ -1,10 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}'],
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter Variable', ...defaultTheme.fontFamily.sans],
+        mono: ['DM Mono', ...defaultTheme.fontFamily.mono],
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -32,7 +38,7 @@ module.exports = {
               'border-radius': '0.25rem',
               'font-size': '0.875rem',
               'line-height': '1.5',
-              'font-family': "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
+              'font-family': theme('fontFamily.mono').join(', '),
             },
             'ol > li::before': {
               color: 'rgb(var(--color-text-bold))',
@@ -40,9 +46,6 @@ module.exports = {
             li: {
               'margin-bottom': '0.5rem',
               color: 'rgb(var(--color-code-text))',
-              'font-size': '1rem',
-              'line-height': '1.5',
-              'font-family': "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
             },
             'code::before': {
               content: 'none',

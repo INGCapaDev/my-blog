@@ -2,7 +2,6 @@
 title: The "Campsite Rule" for your notes
 description: Optimize your notes using the "Campsite Rule" to make them a more valuable and useful resource for the future.
 pubDate: 2023-10-30
-heroImage: https://images.pexels.com/photos/2516423/pexels-photo-2516423.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 categories:
   - Knowledge-Management
 tags:

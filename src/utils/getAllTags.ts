@@ -8,7 +8,6 @@ interface Post {
   description: string;
   pubDate: Date;
   updatedDate: Date | null;
-  heroImage: string | null;
   categories: string[];
   tags: string[];
   authors: string[];

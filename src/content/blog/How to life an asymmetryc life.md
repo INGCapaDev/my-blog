@@ -2,7 +2,6 @@
 title: 4 Principles for living an Authentic Life
 description: Discover the four principles for living an authentic life and maximizing your potential, inspired by the talk by Graham Weaver, CEO of Alpine Investors.
 pubDate: 2023-10-22
-heroImage: https://images.pexels.com/photos/103123/pexels-photo-103123.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 categories:
   - Self-Improvement
 tags:

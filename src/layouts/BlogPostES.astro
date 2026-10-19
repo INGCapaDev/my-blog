@@ -10,28 +10,11 @@ import { slugify } from '@utils/slug';
 
 type Props = CollectionEntry<'blogES'>['data'];
 
-const { title, description, pubDate, heroImage, categories, tags } = Astro.props;
+const { title, description, pubDate, categories, tags } = Astro.props;
 ---
 
-<Base meta_title={title} description={description} image={heroImage} blogpost>
+<Base meta_title={title} description={description} blogpost>
   <article>
-    <div class="mb-8 block overflow-hidden rounded-lg">
-      {
-        heroImage && (
-          <figure class="h-auto w-auto bg-[url('/blog-placeholder.jpg')] bg-cover bg-center object-cover md:h-[480px]">
-            <Image
-              class="cursor-progress transition duration-300 ease-in-out hover:scale-110"
-              src={heroImage}
-              alt={title}
-              width={960}
-              height={480}
-              decoding="async"
-              loading="lazy"
-            />
-          </figure>
-        )
-      }
-    </div>
     <div class="md:col-10 mb-12 text-center">
       <h1 class="text-2xl font-bold md:text-4xl">{title}</h1>
       <div class="text-text mt-4 flex flex-wrap items-center justify-center text-zinc-800 dark:text-zinc-200">
@@ -65,7 +48,7 @@ const { title, description, pubDate, heroImage, categories, tags } = Astro.props
         </div>
       </div>
     </div>
-    <div class="prose-md prose prose-green min-w-full md:prose-lg">
+    <div class="prose prose-zinc max-w-none dark:prose-invert">
       <slot />
     </div>
     <div class="mt-8">

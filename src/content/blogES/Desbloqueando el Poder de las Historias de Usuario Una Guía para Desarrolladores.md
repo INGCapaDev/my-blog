@@ -2,7 +2,6 @@
 title: "Desbloqueando el Poder de las Historias de Usuario: Una Guía para Desarrolladores"
 description: Descubre la importancia de las historias de usuario en las metodologías ágiles con esta guía completa. Aprende qué son las historias de usuario, cómo crearlas de manera efectiva y por qué son esenciales para desarrolladores y profesionales en diversas industrias.
 pubDate: 2024-02-23
-heroImage: https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 categories:
   - Project-Managment
 tags:
