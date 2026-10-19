@@ -159,12 +159,12 @@ const articleSchema = getArticleSchema();
         style="display:none;visibility:hidden"></iframe></noscript
     >
     <!-- End Google Tag Manager (noscript) -->
-    <Header />
+    <Header locale="en" />
     <main class="mx-auto w-full max-w-[calc(65ch+3rem)] flex-1 px-6 py-10 sm:py-16">
       <slot />
     </main>
     {!blogpost && config.features.youtube && <FeaturedVideos />}
-    <Footer />
+    <Footer locale="en" />
     <script>
       // This is a hack to get vite-plugin-pwa to generate a sw.js file.
       // Do not remove this script tag.

@@ -1,7 +1,7 @@
 ---
-import Header from '@components/HeaderES.astro';
+import Header from '@components/Header.astro';
 import FeaturedVideos from '@components/FeaturedVideosES.astro';
-import Footer from '@components/FooterES.astro';
+import Footer from '@components/Footer.astro';
 import config from '@config/configES.json';
 import { socialImages, type SocialImage } from '@config/social-images';
 
@@ -135,12 +135,12 @@ const articleSchema = getArticleSchema();
     <ViewTransitions />
   </head>
   <body class="flex min-h-screen flex-col bg-white dark:bg-zinc-900">
-    <Header />
+    <Header locale="es" />
     <main class="mx-auto w-full max-w-[calc(65ch+3rem)] flex-1 px-6 py-10 sm:py-16">
       <slot />
     </main>
     {!blogpost && config.features.youtube && <FeaturedVideos />}
-    <Footer />
+    <Footer locale="es" />
     <script>
       // This is a hack to get vite-plugin-pwa to generate a sw.js file.
       // Do not remove this script tag.

@@ -1,4 +1,12 @@
-<button id="themeToggle" class="ml-auto md:ml-0" aria-label="Theme Toggle">
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<button id="themeToggle" class="ml-auto md:ml-0" aria-label={label}>
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width={1.5} class="h-6 w-6">
     <path
       class="sun"

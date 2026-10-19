@@ -9,7 +9,7 @@ Preserve the current English/Spanish website while replacing per-language compon
 - In scope: shared components/layouts, typed dictionaries, locale configuration, reusable content/schema/query ownership, thin route entrypoints, generic registered-language routes, and contributor guidance for adding a language.
 - Out of scope: redesign, translated-copy rewrites, framework upgrades, new languages, automatic translation, article translation pairing, article-aware switching, new hreflang behavior, real OG artwork, unrelated lint cleanup, pushes, and deployment.
 - Overall acceptance: preserve current appearance, URLs, post bodies, dates, pagination, metadata, dark mode, sticky footer behavior, and existing analytics differences. English remains unprefixed; Spanish remains under `/es/`. Keep translated Markdown separate and preserve article slugs.
-- The human approved this design and five slices, but explicitly deferred implementation to a new session. No slice has started.
+- The human approved this design and five slices, initially deferred implementation to a new session, then authorized starting with “Start working on the plan for multilanguage approach”.
 
 ## Relevant context
 
@@ -66,13 +66,24 @@ Verification baseline: before each slice, attribute its actual starting worktree
 
 ### S1 — Shared navigation and footer
 
-Status: pending
+Status: complete
 
 - Introduce the typed locale registry, UI dictionaries, and the localized-link helpers needed by navigation. Separate common site settings from the locale-owned values that these components consume.
 - Consolidate Header, Footer, and language controls; wire both existing Base layouts to the shared components. The document metadata/layout consolidation stays in S2.
 - Acceptance: both languages retain their current navigation labels, link destinations, current-page indication, external targets, footer text, language-homepage switching, responsive layout, and theme controls. Shared markup contains no per-language component copies for these responsibilities.
 - Verification: compare English/Spanish navigation/footer DOM and destinations; exercise locale and theme controls through client-side navigation at narrow and desktop widths; verify the accepted sticky-footer layout on short pages. Focused checks on changed code; distinguish baseline analytics errors from new findings.
 - Boundary: preserve accepted footer behavior and existing analytics/metadata in both document shells. Do not enable extra languages or change the switch to article-aware navigation.
+
+Evidence (2026-10-19):
+
+- Started from clean worktree/index at `1ae7005`. Added `src/config/locales.ts`, typed `src/config/ui.ts`, and `src/utils/localized-path.ts`. Shared Header/Footer consume common branding/features from `config.json` and locale-owned navigation/wording from the new data owners. Registry fields needed by later slices remain for those slices.
+- Both Base layouts now pass explicit locales into shared Header/Footer. Removed HeaderES, FooterES, LanguageIconES, and their obsolete menu JSON files; no source references remain. ThemeIcon receives its unchanged accessible label from the dictionary; its client-side logic is unchanged. Shared language navigation selects the other registered locales and still links to homepages, not guessed article translations.
+- Reused the running Astro server at port 4321 and headless Edge/CDP at port 9331. Before/after snapshots of home, About, tags, and categories in both languages at widths 390 and 1280 preserve header/footer text, link destinations/targets/rel/current-page indicators, language-control titles, and head metadata. Non-randomized pages retain exact header/footer geometry, including bottom placement on short category pages and normal flow on long homepages.
+- Initial exact geometry comparison differed on the mobile English tag cloud (375 versus 390 px available width). Existing random font sizes in `src/pages/tags/index.astro` can change wrapping/scrollbars; tag-cloud geometry was excluded from strict equality, not repaired. Its text, navigation, and head comparisons still pass; taxonomy behavior remains untouched.
+- Browser clicks at both widths confirm theme toggles once per click and persists through client-side About/language navigation in both directions. A window marker survived these transitions, distinguishing client-side swaps from full reloads.
+- Focused ESLint and Prettier checks pass for changed components/new TypeScript files. A focused TypeScript 5.2.2 compiler check using project compiler options passes for registry, dictionaries, and path helper. `git diff --check` passes. Base layout lint reproduces exactly the three baseline analytics errors recorded above, with no new errors.
+- Final attributable diff and new files inspected against S1 acceptance. No production build, full Astro typecheck, new repository tests, or independent review performed. Human acceptance remains pending; S2 has not started. Temporary browser-check script and snapshots are under `C:\Users\ftaca\AppData\Local\Temp\opencode\multilingual-s1-*` and are not repository deliverables.
+- Human accepted S1 and authorized its commit plus continuation with “continue and commit the changes”.
 
 ### S2 — Shared document and article layouts
 
@@ -117,5 +128,5 @@ Depends on: S1–S4's shared components and locale-aware query/view contracts.
 
 ## Current progress
 
-- Current slice: S1 (pending; not started).
-- Next action: await the human's request in a new session to execute S1 from this approved plan.
+- Current slice: S2 (pending).
+- Next action: capture S2 baseline and consolidate document/article layouts with explicit locale props.

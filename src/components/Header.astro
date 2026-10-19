@@ -2,18 +2,34 @@
 import LanguageIcon from '@components/LanguageIcon.astro';
 import ThemeIcon from '@components/ThemeIcon.astro';
 import config from '@config/config.json';
-import menu from '@config/menu.json';
+import { locales, type Locale } from '@config/locales';
+import { ui } from '@config/ui';
+import { localizedPath } from '@utils/localized-path';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const labels = ui[locale];
+const links = [
+  { name: labels.navigation.home, url: localizedPath(locale) },
+  { name: labels.navigation.about, url: localizedPath(locale, '/about') },
+  { name: labels.navigation.tags, url: localizedPath(locale, '/tags') },
+  { name: labels.navigation.categories, url: localizedPath(locale, '/categories') },
+  { name: labels.navigation.website, url: locales[locale].websiteUrl, target: '_blank' },
+];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '');
 ---
 
 <header class="mx-auto w-full max-w-[calc(65ch+3rem)] px-6 pt-8">
   <div class="flex flex-wrap items-center gap-x-5 gap-y-4">
-    <a href="/" class="text-sm font-medium text-zinc-800 dark:text-zinc-200">INGCapaDev</a>
-    <nav aria-label="Main navigation" class="order-last w-full md:order-none md:ml-auto md:w-auto">
+    <a href={localizedPath(locale, '/')} class="text-sm font-medium text-zinc-800 dark:text-zinc-200">INGCapaDev</a>
+    <nav aria-label={labels.navigation.label} class="order-last w-full md:order-none md:ml-auto md:w-auto">
       <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
         {
-          menu.main.map((link) => (
+          links.map((link) => (
             <li>
               <a
                 href={link.url}
@@ -30,8 +46,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
       </ul>
     </nav>
     <div class="ml-auto flex items-center gap-4 md:ml-0">
-      {config.features.dark_mode && <ThemeIcon />}
-      <LanguageIcon />
+      {config.features.dark_mode && <ThemeIcon label={labels.themeToggle} />}
+      <LanguageIcon locale={locale} />
     </div>
   </div>
 </header>

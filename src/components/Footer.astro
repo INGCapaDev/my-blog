@@ -1,6 +1,15 @@
 ---
 import HeartIcon from '@components/icons/HeartIcon.astro';
 import config from '@config/config.json';
+import type { Locale } from '@config/locales';
+import { ui } from '@config/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const labels = ui[locale].footer;
 const year = new Date().getFullYear();
 ---
 
@@ -9,9 +18,9 @@ const year = new Date().getFullYear();
     <p class="mb-8 mt-8 text-center text-xs/relaxed text-zinc-500 dark:text-zinc-400">
       &copy; {year}. {config.site.title}
       <span class="mt-2 block">
-        Made with
+        {labels.madeWith}
         <HeartIcon />
-         in Mexico. by
+        {labels.location}
         <a
           href="https://ingcapadev.com"
           class="text-zinc-700 decoration-dashed transition hover:text-zinc-700/75 dark:text-zinc-200 dark:hover:text-zinc-200/75"
