@@ -1,4 +1,11 @@
 import type { Locale } from './locales';
+import type { Taxonomy } from '@utils/taxonomy';
+
+interface TaxonomyLabels {
+  title: string;
+  detailTitle: string;
+  linkTitle: string;
+}
 
 interface UiDictionary {
   navigation: {
@@ -13,6 +20,7 @@ interface UiDictionary {
   themeToggle: string;
   rssTitle: string;
   blogTitle: string;
+  taxonomy: Record<Taxonomy, TaxonomyLabels>;
   pagination: {
     previous: string;
     next: string;
@@ -37,6 +45,18 @@ export const ui = {
     themeToggle: 'Theme Toggle',
     rssTitle: 'RSS (English)',
     blogTitle: 'Blog',
+    taxonomy: {
+      tags: {
+        title: 'Tags:',
+        detailTitle: 'Tag:',
+        linkTitle: 'View posts with the tag:',
+      },
+      categories: {
+        title: 'Categories:',
+        detailTitle: 'Category:',
+        linkTitle: 'View posts with the tag:',
+      },
+    },
     pagination: {
       previous: 'Prev Page',
       next: 'Next Page',
@@ -59,6 +79,18 @@ export const ui = {
     themeToggle: 'Theme Toggle',
     rssTitle: 'RSS (inglés)',
     blogTitle: 'Blog',
+    taxonomy: {
+      tags: {
+        title: 'Etiquetas:',
+        detailTitle: 'Etiqueta:',
+        linkTitle: 'Ver publicaciones con esta etiqueta:',
+      },
+      categories: {
+        title: 'Categorias:',
+        detailTitle: 'Categoria:',
+        linkTitle: 'View posts with the tag:',
+      },
+    },
     pagination: {
       previous: 'Anterior',
       next: 'Siguiente',

@@ -1,0 +1,41 @@
+---
+import Base from '@layouts/Base.astro';
+import CategoryIcon from '@icons/CategoryIcon.astro';
+import type { Locale } from '@config/locales';
+import { ui } from '@config/ui';
+import { localizedPath } from '@utils/localized-path';
+import type { Post } from '@utils/posts';
+import { deslugify } from '@utils/slug';
+import type { Taxonomy } from '@utils/taxonomy';
+
+interface Props {
+  locale: Locale;
+  taxonomy: Taxonomy;
+  term: string;
+  posts: Post[];
+}
+
+const { locale, taxonomy, term, posts } = Astro.props;
+---
+
+<Base locale={locale}>
+  <h1 class:list={['mb-8 text-2xl font-bold md:text-3xl', { capitalize: taxonomy === 'categories' }]}>
+    {ui[locale].taxonomy[taxonomy].detailTitle}
+    {deslugify(term)}
+  </h1>
+  <ul class="ml-4 space-y-4 text-left text-zinc-500 dark:text-zinc-400">
+    {
+      posts.map((post) => (
+        <li class="flex items-center space-x-1">
+          <CategoryIcon />
+          <a
+            href={localizedPath(locale, `/blog/${post.slug}`)}
+            class="text-zinc-500 hover:text-zinc-800 dark:text-zinc-400"
+          >
+            {post.data.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

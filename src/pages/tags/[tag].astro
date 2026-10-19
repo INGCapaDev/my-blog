@@ -1,39 +1,13 @@
 ---
-import Base from '@layouts/Base.astro';
-import CategoryIcon from '@components/icons/CategoryIcon.astro';
-import { getTaxonomy } from '@utils/getAllTags';
-import { getSinglePage } from '@utils/getAllTags';
-import { taxonomyFilter } from '@utils/getAllTags';
-import { deslugify } from '@utils/slug';
+import type { InferGetStaticPropsType } from 'astro';
+import TaxonomyPosts from '@layouts/TaxonomyPosts.astro';
+import { getTaxonomyPages } from '@utils/taxonomy';
 
 export async function getStaticPaths() {
-  const tags = await getTaxonomy('blog', 'tags');
-
-  return tags.map((tag) => {
-    return {
-      params: { tag: tag.slug },
-    };
-  });
+  return getTaxonomyPages('en', 'tags');
 }
 
-const { tag } = Astro.params;
-
-const posts = await getSinglePage('blog');
-const filterByTags = taxonomyFilter(posts, 'tags', tag);
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 ---
 
-<Base locale="en">
-  <h1 class="mb-8 text-2xl font-bold md:text-3xl">Tag: {deslugify(tag as string)}</h1>
-  <ul class="ml-4 space-y-4 text-left text-zinc-500 dark:text-zinc-400">
-    {
-      filterByTags?.map((post) => (
-        <li class="flex items-center space-x-1">
-          <CategoryIcon />
-          <a href={`/blog/${post.slug}`} class="text-zinc-500 hover:text-zinc-800 dark:text-zinc-400">
-            {post.data.title}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</Base>
+<TaxonomyPosts {...Astro.props} />

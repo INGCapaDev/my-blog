@@ -129,12 +129,25 @@ Evidence (2026-10-19):
 
 ### S4 — Shared tags and categories
 
-Status: pending
+Status: complete
 Depends on: S3's locale-aware content ownership and shared discovery components.
 
 - Consolidate tag/category index and detail views and their query/generation logic. Use each locale's own collection for path generation and filtering, including the existing Spanish tag-generation coupling.
 - Acceptance: existing taxonomy labels, paths, link destinations, post membership, tag-cloud styles, and category presentation remain available in both languages. No repeated language-specific taxonomy view or query implementation remains.
 - Verification: inventory all current EN/ES taxonomy URLs before edits, then compare generated route membership and rendered post links for each tag/category. Confirm no cross-language post links. Compare structural/tag-style behavior without expecting identical random class assignments. Use focused checks for the affected query and view contracts.
+- Approved visual refinement: human requested monochrome styling and clarified “Yes tags I mean”. Replace the colorful tag-cloud palette with neutral black/gray shades in light mode and white/gray shades in dark mode; preserve varied text sizes, random selection, content, links, and category presentation. This supersedes color parity only.
+
+Evidence (2026-10-19):
+
+- S3 is committed as `02515f3`; S4 started from a clean worktree/index. Added shared TaxonomyIndex/TaxonomyPosts views and typed `src/utils/taxonomy.ts` for term discovery, path generation, and filtering. All eight existing taxonomy routes are thin locale/kind adapters. UI dictionaries retain exact heading/tooltip wording, including the existing English category tooltips in Spanish.
+- Added `getPostEntries()` to the existing post-query owner to expose validated entries in collection order. Taxonomy indices and detail membership preserve that original order rather than using the homepage's newest-first query. Term discovery deduplicates names in first-seen order; original slug/deslugify semantics and negative-ID exclusion remain. The removed legacy draft check addressed no schema-valid state: the unchanged content schema has no draft field. Removed the obsolete, broadly lint-disabled `getAllTags.ts` after migrating every caller and confirming its standalone MDX helper had no consumers.
+- Spanish tag generation now selects Spanish entries through the locale registry, eliminating the English-collection coupling. The existing EN/ES taxonomy URL sets still match their baselines: 21 tag and nine category detail URLs per language plus four indices (64 distinct URLs). Content files, schemas, post-list sort/pagination behavior, and route-tree structure remain unchanged.
+- Captured before/after browser snapshots for every taxonomy URL at widths 390 and 1280 (128 comparisons). Route inventory, normalized main text/headings, heading locale, tooltip titles, every term/post link, exact post membership and order, document language, head metadata, and header/footer text match. Non-randomized shell geometry also matches; tag-cloud geometry remains excluded because of the established random font sizes.
+- Browser checks retain the original eight tag style classes, category presentation, and client-side index→detail→article navigation for both taxonomy kinds/languages at both widths. Window markers survive those transitions; resulting articles retain the correct language and JSON-LD. Existing About/language/theme checks pass at both widths. No cross-language detail-page post links appear in any snapshot.
+- Focused TypeScript 5.2.2 checks pass for taxonomy/query contracts, registry/dictionaries, shared schema, and generated content types. Focused ESLint passes for all changed/new source owners and taxonomy routes. Prettier API checks pass for every changed/new source file after CLI directory discovery skipped the route files. Complete attributable diff/new files inspected against S4 acceptance; `git diff --check` passes, and no references to removed helper exports remain.
+- Prior unchanged metadata/security/analytics evidence from accepted S2 is reused. No production build, full Astro typecheck, independent review, or maintained tests added/run. Temporary browser script and `multilingual-s4-{before,after}.json` snapshots remain under `C:\Users\ftaca\AppData\Local\Temp\opencode`, not in the repository. S4 remains uncommitted and awaits human acceptance; S5 has not started.
+- Requested tag refinement replaces chromatic classes with neutral-600 through neutral-900 in light mode and neutral-100 through neutral-400 in dark mode, plus black/white hover transitions. The eight original size choices and random selection remain intact; categories and all queries are unchanged. Focused browser checks cover EN/ES tags at widths 390/1280 in both themes: all 21 links match the baseline, varied sizes remain, computed text colors are neutral RGB, hover resolves to black/white, and minimum measured text contrast is 7.02:1. Inspected desktop screenshots in both themes (`tags-monochrome-{light,dark}.png` in the approved temporary directory). Focused ESLint/Prettier and final diff checks pass. Prior unchanged membership/navigation evidence is reused; the earlier original-color assertion is superseded by these theme-aware checks, not claimed as current proof. Adjusted S4 awaits acceptance; no commit or S5 execution authorized.
+- Human accepted all S4 changes, including monochrome tags, and authorized committing them with “commit all this changes are approved”. No continuation to S5 or push requested.
 
 ### S5 — Registry-driven language expansion
 
@@ -150,5 +163,5 @@ Depends on: S1–S4's shared components and locale-aware query/view contracts.
 
 ## Current progress
 
-- Current slice: S4 (pending; not started).
-- Next action: await continuation to capture the taxonomy baseline and execute S4.
+- Current slice: S5 (pending; not started).
+- Next action: await continuation to capture the full-site baseline and execute S5.
