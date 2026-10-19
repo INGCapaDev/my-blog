@@ -4,7 +4,7 @@
 
 Redesign the blog as a text-first publication inspired by https://antfu.me/posts.
 Repository: `C:\my-blog`; branch: `feat/minimalist-blog`, created from `main` at `329777a`.
-Preserve English and Spanish content, dark mode, existing article/archive URLs, and images inside articles. Keep existing image files. No framework upgrades, pushes, or deployments are authorized. The human explicitly authorized committing the accepted S1/S2 changes with "Yes commit and continue".
+Preserve English and Spanish content, dark mode, existing article/archive URLs, and images inside articles. Keep existing image files. No framework upgrades, pushes, or deployments are authorized. The human explicitly authorized committing the accepted S1/S2 changes with "Yes commit and continue" and subsequently authorized committing accepted S3 with "for now commit the changes and we move on".
 
 ## Relevant context
 
@@ -20,6 +20,14 @@ Later requirements:
 
 > Lets go with fontsource approach like the nutriflex/landing project on the workprojects folder.
 > explore as well if we can improve some SEO, metadata based on the landing nutriflex references and ai harness landing as well, I'll provide the opengraph resources later. limit as well thereading width like antfu.
+
+S3 adjustment requested by the human:
+
+> Make the articleSchema on Base.astro a function. on the top when getting with undefined and use early return.
+>
+> same for ES and EN version.
+>
+> Change the 404 page for a more minimalist style a like, you can as well explore antfu for this approach
 
 The human approved the updated three-step plan and execution of step 1 with "Yes".
 
@@ -40,6 +48,7 @@ The human approved the updated three-step plan and execution of step 1 with "Yes
 - Improve canonical resolution, localized social metadata, article type/dates, BlogPosting JSON-LD, and RSS discovery in S3. Remove obsolete template metadata.
 - Current OG generation uses literal Cloudinary placeholders. Replace broken output with optional image configuration; artwork, alt text, and dimensions will be supplied later. No invented assets or dimensions. Article covers and social images remain separate concepts.
 - Do not infer translation pairs from different-language post slugs. No automatic post-level hreflang without an explicit pairing model.
+- S3 refinement: use a named article-schema function with an early `undefined` return on non-article pages in both Base layouts. Replace the 404 illustration with a text-only error message and standard links to the English/Spanish indexes, retaining the shared shell and noindex behavior.
 
 ## Slices
 
@@ -62,7 +71,7 @@ Evidence:
 - Theme toggles and local-storage state work across both viewport sizes and both languages. Client-side navigation from the Spanish index to an article retains the theme and the toggle still works after the swap. Stable light/mobile and dark/desktop screenshots visually inspected; stored outside the repository in the approved temporary folder as `blog-mobile.png` and `blog-desktop.png`.
 - Focused ESLint passes for changed components, post layouts, homepages, and Tailwind configuration. The two Base layouts retain three pre-existing lint errors: unqualified `dataLayer` in each, plus missing title on the English analytics iframe. Running ESLint against their original HEAD contents reproduced those same errors. No new lint errors observed.
 - Targeted Prettier checks and `git diff --check` pass. Attributable diff reconciled with S1 scope. No independent review requested or performed; production-build behavior is not verified.
-- Human accepted S1 and authorized S2 with "continue". S1 is complete; its accepted changes remain uncommitted in the worktree.
+- Human accepted S1 and authorized S2 with "continue". Accepted S1/S2 changes were subsequently committed together as `2268c91` under explicit human authorization.
 
 ### S2 — Remove post-cover support
 
@@ -83,16 +92,40 @@ Evidence:
 - Prettier checks pass for the changed Astro layouts and plan. The collection configuration, taxonomy utility, and new-post script already failed formatting checks in the pre-slice snapshot and remain equally noncompliant; left unformatted to avoid unrelated churn. `git diff --check` passes.
 - Candidate reconciled with S2 scope; SEO and existing S1 layout behavior were preserved. No production build, new tests, or independent review performed.
 - Human accepted S2, authorized committing the accepted S1/S2 changes, and authorized S3 with "Yes commit and continue".
+- Accepted S1/S2 changes committed as `2268c91` (`feat(blog): adopt minimalist typography and remove post covers`). S3 started from a clean worktree. No push was requested or performed.
 
 ### S3 — Accurate SEO and optional social artwork
 
-Status: pending
+Status: complete
 
 - Apply the agreed metadata improvements through existing document/layout owners, adapted for bilingual blog pages and articles.
 - Acceptance: canonical and social URLs resolve absolutely; article pages expose correct type/dates and valid BlogPosting JSON-LD; English/Spanish defaults are localized; RSS is discoverable; no placeholder OG image URLs are emitted. Image metadata is optional until resources arrive.
 - Verification: inspect rendered head and parsed structured data on both homepages, representative articles, an archive page, and the noindex page; check canonical overrides and absence of image tags without assets. Focused lint/format checks.
 
+Evidence:
+
+- Existing English/Spanish Base layouts now resolve canonicals and social URLs against the production site origin, honor canonical overrides, expose localized site metadata, distinguish articles from websites, and advertise the existing English RSS feed explicitly as English in both locales. Removed obsolete template-identification metadata and the unused placeholder Cloudinary helper.
+- Article layouts pass publication/modification dates. The Base props contract requires publication dates for article pages. Article metadata and BlogPosting JSON-LD use actual dates, titles, descriptions, language, author, and canonical URLs; absent modification dates remain absent. JSON-LD escapes `<` before script insertion.
+- `src/config/social-images.ts` owns optional English/Spanish artwork defaults and the required path/alt/width/height shape; Base props also allow page-specific artwork. Config remains empty pending human-supplied resources. No image tags, invented artwork, or dimensions are emitted; Twitter cards use `summary` without artwork.
+- The existing 404 page now uses Base with `noindex`, supplying a real document/head and retaining its existing illustration and controls. Its content height was adjusted to fit inside the shared shell.
+- Rendered-head checks pass on 32 routes: both homepages, English/Spanish archive page 2, `/404`, an unknown URL, and all 26 articles. Canonical and OG URLs agree, locales are `en_US`/`es_MX`, all article JSON-LD parses with the expected content/date/language, and no image metadata or placeholder URLs appear. Missing-page responses are HTTP 404 with `noindex,nofollow`. RSS endpoint returns 200 with RSS content.
+- Ten in-memory probes execute each layout's actual frontmatter using existing esbuild: query-free default canonicals, relative and absolute canonical overrides, modification dates, per-page and locale-default artwork URL resolution, and script-termination escaping all pass. Initial probe attempts lacked Node VM globals (`module` and `URL`); corrected the probe context without source changes. No temporary test files, assets, or debug routes were added.
+- Headless Edge confirms the 404 page has no horizontal overflow at 390px and carries its noindex metadata. Client-side home-to-article navigation installs one article schema with a matching canonical; returning home removes the schema and restores website metadata.
+- Focused lint passes for the new social-image configuration and both article layouts. The Base layouts retain S1's three analytics lint errors. The 404 page has three pre-existing anchor-accessibility lint errors, reproduced from HEAD before this slice; unchanged by the metadata work. No new lint errors observed. All changed-file Prettier checks and `git diff --check` pass.
+- Diff reconciled against the committed S1/S2 baseline: existing article content, assets, typography, and index behavior are unchanged. No independent review, production build, production crawler validation, or real-image social-preview validation performed. Optional artwork data/serialization is probed and tag markup inspected; real-artwork previews remain pending resources. SEO changes are uncommitted pending human acceptance.
+
+Requested-adjustment evidence:
+
+- Refactored both Base layouts to `getArticleSchema()`, returning `undefined` immediately on non-article pages and otherwise returning the existing schema. All schema fields and serialization remain unchanged.
+- Explored antfu's published source at `https://github.com/antfu/antfu.me/blob/main/pages/%5B...404%5D.md`: its error content is simply a 404 heading and a short friendly sentence. The live HTTP fallback returned homepage HTML rather than reliable error-page markup, so source informed the text-only approach.
+- Replaced the 404 illustration/history action with restrained text, whitespace, and ordinary links to `/` and `/es/`. Retained the shared document shell, noindex metadata, fonts, and dark mode. Removing the non-semantic history anchor also removes the three prior 404 lint errors.
+- Captured the pre-adjustment files, rendered schema strings, and actual Git index in the approved temporary folder (`minimalist-blog-s3-adjustment.json`). Existing staged SEO changes were preserved exactly; these adjustments remain unstaged. No commit was made for this request.
+- Before/after HTTP comparison on both homepages and all 26 articles confirms byte-identical JSON-LD output, including absence on non-article pages. Isolated strict TypeScript checks using the installed compiler pass for both layouts' actual frontmatter; this is not a full-project Astro typecheck.
+- `/404` and an unknown path still return HTTP 404 with noindex metadata; main content contains no images, SVGs, or click handlers and exposes both working return links. Headless Edge checks at 390px/light and 1280px/dark show no horizontal overflow; screenshots visually inspected. The Spanish link successfully navigates to the Spanish index through the client router.
+- 404 ESLint, changed-file Prettier checks, and `git diff --check` pass. The three previously evidenced Base analytics lint errors remain unchanged. Other unchanged S3 evidence above is reused; no independent review or build performed.
+- Human accepted revised S3 and authorized committing it: "Lets keep the footer always on the bottom of the screen fix this on a later slice, for now commit the changes and we move on". Footer positioning is explicitly deferred in the repository's `TODO.md`, outside this completed plan; no footer implementation was added. Real social artwork remains pending human-provided resources.
+
 ## Current progress
 
-- Current slice: S3.
-- Next action: commit accepted S1/S2 changes, then implement and verify SEO/metadata for human acceptance.
+- Current slice: none; S1, S2, and S3 are human-accepted and complete.
+- Next action: await authorization/resources for deferred footer implementation or social-artwork integration; no further implementation is authorized by this completed plan.

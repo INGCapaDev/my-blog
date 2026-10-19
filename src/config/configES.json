@@ -6,7 +6,7 @@
     "favicon": "/favicon.png",
     "logo": "/logo_ingcapadev.webp",
     "lang": "es",
-    "description": "My blog personal",
+    "description": "Mi blog personal",
     "pageSize": 6
   },
   "features": {
@@ -14,6 +14,7 @@
     "dark_mode": true
   },
   "metadata": {
+    "locale": "es_MX",
     "meta_author": "Alvaro Capaceta",
     "meta_description": "Bienvenido a mi blog personal donde comparto mis experiencias y conocimientos sobre desarrollo web, productividad y otros temas interesantes."
   },

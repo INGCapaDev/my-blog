@@ -3,32 +3,66 @@ import Header from '@components/Header.astro';
 import FeaturedVideos from '@components/FeaturedVideos.astro';
 import Footer from '@components/Footer.astro';
 import config from '@config/config.json';
-import { createOgImage } from '@utils/createOgImage';
+import { socialImages, type SocialImage } from '@config/social-images';
 
 import '@styles/global.css';
 
 import { ViewTransitions } from 'astro:transitions';
 
-export interface Props {
+interface PageMetadata {
   title?: string;
   meta_title?: string;
   description?: string;
   noindex?: boolean;
   canonical?: string;
-  blogpost?: boolean;
+  ogImage?: SocialImage;
 }
 
-const { title, meta_title, description, noindex, blogpost } = Astro.props;
+export type Props = PageMetadata &
+  ({ blogpost: true; pubDate: Date; updatedDate?: Date } | { blogpost?: false; pubDate?: never; updatedDate?: never });
 
-const ogImage = createOgImage({
-  title: meta_title ? meta_title : title ? title : config.site.title,
-  meta: [config.site.title, config.site.base_url].join(' · '),
-});
+const {
+  title,
+  meta_title,
+  description,
+  noindex,
+  canonical,
+  blogpost,
+  pubDate,
+  updatedDate,
+  ogImage = socialImages.en,
+} = Astro.props;
+const pageTitle = meta_title ?? title ?? config.site.title;
+const pageDescription = description ?? config.metadata.meta_description;
+const siteOrigin = Astro.site ?? config.site.base_url;
+const canonicalUrl = new URL(canonical ?? Astro.url.pathname, siteOrigin).href;
+const imageUrl = ogImage ? new URL(ogImage.path, siteOrigin).href : undefined;
+
+function getArticleSchema() {
+  if (!blogpost) return undefined;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: pageTitle,
+    description: pageDescription,
+    url: canonicalUrl,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+    datePublished: pubDate.toISOString(),
+    dateModified: updatedDate?.toISOString(),
+    inLanguage: config.site.lang,
+    author: { '@type': 'Person', name: config.author.name },
+    image: imageUrl,
+  };
+}
+
+const articleSchema = getArticleSchema();
 ---
 
 <!doctype html>
 <html lang={config.site.lang}>
   <head>
+    <meta charset="UTF-8" />
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
@@ -46,12 +80,10 @@ const ogImage = createOgImage({
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
     <link rel="icon" href={config.site.favicon} />
-    <!-- theme meta -->
-    <meta name="theme-name" content="bookworm-light-astro" />
-    <meta name="msapplication-TileColor" content="#000000" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#18181b" />
     <meta name="generator" content={Astro.generator} />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- responsive meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <!-- Google tag (gtag.js) -->
@@ -66,29 +98,52 @@ const ogImage = createOgImage({
       gtag('config', 'G-DVRWKZ2Y09');
     </script>
 
-    <title>{meta_title ? meta_title : title ? title : config.site.title}</title>
-    <meta name="title" content={meta_title ? meta_title : title ? title : config.site.title} />
-    <link rel="canonical" href={`${config.site.base_url}/${Astro.url.pathname.replace('/', '')}`} item-prop="url" />
+    <title>{pageTitle}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${config.site.title} — RSS (English)`}
+      hreflang="en"
+      href={new URL('/rss.xml', siteOrigin).href}
+    />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
-    <meta name="description" content={description ? description : config.metadata.meta_description} />
-    <!-- author from config.json -->
+    <meta name="description" content={pageDescription} />
     <meta name="author" content={config.metadata.meta_author} />
-    <!-- og-title -->
-    <meta property="og:title" content={meta_title ? meta_title : title ? title : config.site.title} />
-    <!-- og-description -->
-    <meta property="og:description" content={description ? description : config.metadata.meta_description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={`${config.site.base_url}/${Astro.url.pathname.replace('/', '')}`} />
-
-    <!-- twitter-title -->
-    <meta name="twitter:title" content={meta_title ? meta_title : title ? title : config.site.title} />
-    <!-- twitter-description -->
-    <meta name="twitter:description" content={description ? description : config.metadata.meta_description} />
-    <!-- og-image -->
-    <meta property="og:image" content={ogImage} />
-    <!-- twitter-image -->
-    <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content={blogpost ? 'article' : 'website'} />
+    <meta property="og:site_name" content={config.site.title} />
+    <meta property="og:locale" content={config.metadata.locale} />
+    <meta property="og:url" content={canonicalUrl} />
+    {
+      blogpost && (
+        <>
+          <meta property="article:published_time" content={pubDate.toISOString()} />
+          {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
+        </>
+      )
+    }
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    {
+      ogImage && (
+        <>
+          <meta property="og:image" content={imageUrl} />
+          <meta property="og:image:alt" content={ogImage.alt} />
+          <meta property="og:image:width" content={String(ogImage.width)} />
+          <meta property="og:image:height" content={String(ogImage.height)} />
+          <meta name="twitter:image" content={imageUrl} />
+          <meta name="twitter:image:alt" content={ogImage.alt} />
+        </>
+      )
+    }
+    {
+      articleSchema && (
+        <script type="application/ld+json" set:html={JSON.stringify(articleSchema).replace(/</g, '\\u003c')} />
+      )
+    }
 
     <script is:inline src="/registerSW.js"></script>
     <link rel="manifest" href="/manifest.webmanifest" />
