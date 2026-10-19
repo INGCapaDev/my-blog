@@ -149,7 +149,7 @@ const articleSchema = getArticleSchema();
     <link rel="manifest" href="/manifest.webmanifest" />
     <ViewTransitions />
   </head>
-  <body class="bg-white dark:bg-zinc-900">
+  <body class="flex min-h-screen flex-col bg-white dark:bg-zinc-900">
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
@@ -160,7 +160,7 @@ const articleSchema = getArticleSchema();
     >
     <!-- End Google Tag Manager (noscript) -->
     <Header />
-    <main class="mx-auto w-full max-w-[calc(65ch+3rem)] px-6 py-10 sm:py-16">
+    <main class="mx-auto w-full max-w-[calc(65ch+3rem)] flex-1 px-6 py-10 sm:py-16">
       <slot />
     </main>
     {!blogpost && config.features.youtube && <FeaturedVideos />}

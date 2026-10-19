@@ -1,0 +1,121 @@
+# Shared multilingual presentation
+
+## Goal and scope
+
+Preserve the current English/Spanish website while replacing per-language component copies with shared presentation and locale-owned data. UI changes should propagate once; adding a language should require configuration, translations, and content rather than copied templates.
+
+- Repository: `C:\my-blog`; branch: `feat/minimalist-blog`.
+- This plan follows the completed [minimalist blog plan](../minimalist-blog/PLAN.md). Commits `2268c91` and `8a35685` contain the accepted redesign and SEO work. The accepted footer fix and TODO cleanup are being committed alongside this plan before handoff; Git owns their final commit identity.
+- In scope: shared components/layouts, typed dictionaries, locale configuration, reusable content/schema/query ownership, thin route entrypoints, generic registered-language routes, and contributor guidance for adding a language.
+- Out of scope: redesign, translated-copy rewrites, framework upgrades, new languages, automatic translation, article translation pairing, article-aware switching, new hreflang behavior, real OG artwork, unrelated lint cleanup, pushes, and deployment.
+- Overall acceptance: preserve current appearance, URLs, post bodies, dates, pagination, metadata, dark mode, sticky footer behavior, and existing analytics differences. English remains unprefixed; Spanish remains under `/es/`. Keep translated Markdown separate and preserve article slugs.
+- The human approved this design and five slices, but explicitly deferred implementation to a new session. No slice has started.
+
+## Relevant context
+
+Original planning request:
+
+> accepted, is there anything left? if not I would want to plan how can we have a better multilanguage apporach than the current one that makes every component to duplicate or is this apporach really necessary?
+
+Selected scope:
+
+> I want to deduplicate components and keep the content separated translated markdown file the final version should practically being able to match the current website but with a better codebase and less code to mantain, as well being easy to add new languages and spread changes if something updates instead of mantaining a component for each language
+
+Approval and handoff instruction:
+
+> Yes persist it commit the current work to clean the workspace then Ill start on another clean session
+
+Current owners and constraints:
+
+- `package.json`: Astro 3.2.3, Tailwind 3.3.3, existing MDX integration, pnpm 9.9.0. Native Astro i18n configuration was introduced in 3.5.0; this plan uses existing file-based routing rather than requiring an upgrade. Use version-compatible content APIs, including the current entry `.render()` method, not examples that require newer Astro versions.
+- `src/content/config.ts`: `blog` and `blogES` register identical schemas. Each collection has 13 separate translated Markdown entries. Keep these folders, collection names, post bodies, and existing slugs; share the schema instead of migrating all content into a new collection.
+- `src/config/config.json` and `configES.json`: duplicated site/author/features plus locale-specific descriptions, URL prefixes, language, and OG locale. `menu.json` and `menuES.json` duplicate navigation structure with translated labels and different external Website URLs. Preserve those external targets.
+- Eleven component/layout pairs exist: Base, BlogPost, Posts, Header, Footer, FormattedDate, Pagination, LanguageIcon, FeaturedVideos, Hero, and HomePagination. Hero/HomePagination pairs currently have no source import consumers; confirm before removing them. FeaturedVideos is disabled by configuration but remains a supported feature; its two copies are identical and currently display the English heading.
+- `src/layouts/Base.astro` and `BaseES.astro`: duplicated SEO, JSON-LD, theme controls, and page shell. Both have `getArticleSchema()` with an early undefined return. English has Google Tag Manager plus Google Analytics; Spanish has Google Analytics only. Do not accidentally enable, remove, or double-install analytics while merging the shell.
+- `src/config/social-images.ts`: optional `en`/`es` artwork with path, alt, width, and height. It is empty pending resources. Registry-driven language support must not leave this as a separately hardcoded language list or emit placeholder images.
+- `src/components/LanguageIcon.astro` and `LanguageIconES.astro`: the current one-click control links to the other language's homepage. No explicit article translation identity exists; do not guess counterpart slugs.
+- `src/pages` and `src/pages/es`: paired homepage, archive, article, About, tag, and category routes. Current About copy is in separate Astro page bodies with a repeated technology grid. `src/layouts/Page.astro` and `Techicon.astro` are already shared.
+- `src/pages/es/tags/[tag].astro` currently generates paths from English tags and filters Spanish posts. Current EN/ES taxonomy sets match (21 tags and nine categories each), so this does not presently require URL changes. Shared generation must use the selected locale's content instead of retaining the cross-locale coupling.
+- Tag clouds intentionally choose from a random style-class list; preserve the style set and behavior rather than treating random class differences as parity failures.
+- `src/pages/rss.xml.js`: existing English-only feed. Preserve it and the explicitly English RSS discovery links; creating per-language feeds is not part of this refactor. `src/pages/404.astro` is the accepted shared text-only error page with English/Spanish return links and noindex metadata.
+- Known baseline limitations: three Base analytics lint errors (two unqualified `dataLayer` references and the English analytics iframe title). The legacy npm lockfile is already stale; pnpm and `pnpm-lock.yaml` are the active install approach. No test runner or dedicated typecheck script is configured. Do not turn this refactor into framework/checker setup or broad legacy cleanup.
+
+Applicable instructions: follow the global AGENTS baseline. Before substantive implementation, use `code-quality`, `coding-conventions`, and its TypeScript/architecture references. When editing this plan or contributor instructions, apply `writing-for-agents`. The Capa installation's `references/planned-execution.md` owns execution/resume; this plan does not replace that procedure.
+
+Documentation consulted during planning:
+
+- https://docs.astro.build/en/recipes/i18n/ — shared UI dictionaries and locale/path helpers.
+- https://docs.astro.build/en/guides/routing/ — static dynamic routes and pagination parameters; apply only APIs supported by installed Astro.
+
+## Agreed design
+
+- Keep one markup owner for each responsibility: Base, Header, Footer, BlogPost, Posts, FormattedDate, Pagination, and language controls. ThemeIcon, icons, Code, and other already-shared components remain shared.
+- Establish one typed locale registry containing each language's prefix, display name, date/OG locale, content collection, localized defaults, and relevant feature/analytics differences. Keep common branding, author data, and site-wide settings shared. Reuse the repository's configuration ownership rather than scattering language conditionals across components.
+- Store UI labels and accessibility strings in typed dictionaries. Maintain the current wording, including existing labels, rather than mixing copy corrections into the refactor. Missing required dictionary entries should be visible to maintainers, not silently hidden by arbitrary fallback text.
+- Resolve locale at the route boundary and pass it explicitly through shared layouts/components. Central helpers own localized internal links and collection selection; individual components should not independently parse URLs or recreate prefix rules. Preserve legitimate external-link differences in locale data.
+- Keep existing translated article files separate. Reuse one schema and typed locale-aware queries across the current collections. Views receive the matching entries and locale, preserving absence semantics for optional dates and OG images.
+- English route entrypoints remain thin adapters. Non-default registered languages use generic `[lang]` entrypoints rather than one copied route tree per language. Generate only supported non-default language paths, while preserving every existing English/Spanish URL and pagination endpoint.
+- Preserve the two-language homepage-switch behavior. The shared control owns supported-language navigation from the registry; adding a language must not require another icon/component variant or assume an article translation exists.
+- Separate About's translated prose from shared page/technology presentation. Preserve its paragraphs, section order, metadata, and grid. Existing Markdown/MDX support may host translated long-form content where needed; no new rendering library is required.
+- Preserve analytics placement/activation, client-side theme navigation, JSON-LD escaping and early-return semantics, real metadata absence, the shared 404, and the accepted full-height flex shell. Do not normalize previously distinct behavior merely because it was encoded in separate files.
+- After final migration, adding a language requires its registry entry, complete UI dictionary, translated content/collection registration, and any localized About content. It must not require copying layout/components or adding a language-specific route tree. No third language is added in this plan.
+
+Verification baseline: before each slice, attribute its actual starting worktree/index and capture the relevant current route/content/head output. Compare normalized text, links, dates, locale-specific metadata, and structure; account for existing random tag styles. Reuse the established headless-browser tooling when available. Check desktop/mobile short and long pages, locale switching, and theme behavior where affected. Use focused existing lint/format checks and purposeful runtime evidence; no routine production build, new test suite, or independent review has been authorized.
+
+## Slices
+
+### S1 — Shared navigation and footer
+
+Status: pending
+
+- Introduce the typed locale registry, UI dictionaries, and the localized-link helpers needed by navigation. Separate common site settings from the locale-owned values that these components consume.
+- Consolidate Header, Footer, and language controls; wire both existing Base layouts to the shared components. The document metadata/layout consolidation stays in S2.
+- Acceptance: both languages retain their current navigation labels, link destinations, current-page indication, external targets, footer text, language-homepage switching, responsive layout, and theme controls. Shared markup contains no per-language component copies for these responsibilities.
+- Verification: compare English/Spanish navigation/footer DOM and destinations; exercise locale and theme controls through client-side navigation at narrow and desktop widths; verify the accepted sticky-footer layout on short pages. Focused checks on changed code; distinguish baseline analytics errors from new findings.
+- Boundary: preserve accepted footer behavior and existing analytics/metadata in both document shells. Do not enable extra languages or change the switch to article-aware navigation.
+
+### S2 — Shared document and article layouts
+
+Status: pending
+Depends on: S1's locale contract and shared shell components.
+
+- Consolidate Base, BlogPost, and FormattedDate using explicit locale props. Migrate their consumers; any transitional adapter must be a pass-through rather than another markup/metadata owner and must be removed by final migration.
+- Keep the article metadata contract, named early-return schema function, locale-specific descriptions/OG settings, optional artwork, and analytics differences in the shared owner/configuration.
+- Acceptance: one document template and one article template render both languages; current titles, descriptions, canonical URLs, article dates, JSON-LD, author metadata, body formatting, and content images match. No schema appears on non-article pages; no artwork appears when unconfigured.
+- Verification: compare rendered heads and parsed JSON-LD on both homepages, archive pages, About, 404, and representative English/Spanish articles. Verify relative/absolute canonical overrides, absence of optional dates/images, and JSON-LD escaping where feasible using existing tools. Check client-side home/article/language navigation for stale metadata, theme handlers, or doubled analytics. Recheck footer geometry on short and long pages.
+- Boundary: retain English GTM+GA versus Spanish GA-only behavior. No analytics migration or broad lint repair. Recommend a focused review if unresolved compatibility/security uncertainty remains in the actual candidate; do not dispatch without approval.
+
+### S3 — Shared post discovery and pagination
+
+Status: pending
+Depends on: S2's shared locale-aware layouts.
+
+- Consolidate Posts and Pagination, homepage/archive presentation, and the content queries they need. Register existing blog collections against a shared schema; select collections through locale configuration instead of copied queries.
+- Acceptance: each homepage still shows all 13 corresponding posts, newest first and grouped by year; archives retain six-entry pages and all current pagination URLs. Titles, locale-specific dates, links, and pagination labels are preserved. English and Spanish entries never mix.
+- Verification: compare every homepage/archive link and publication order with the slice baseline; exercise archive boundaries (pages 1, 2, and 3), locale-specific labels, and representative article links. Check shared types/schema and focused lint/format output; verify both viewport sizes.
+
+### S4 — Shared tags and categories
+
+Status: pending
+Depends on: S3's locale-aware content ownership and shared discovery components.
+
+- Consolidate tag/category index and detail views and their query/generation logic. Use each locale's own collection for path generation and filtering, including the existing Spanish tag-generation coupling.
+- Acceptance: existing taxonomy labels, paths, link destinations, post membership, tag-cloud styles, and category presentation remain available in both languages. No repeated language-specific taxonomy view or query implementation remains.
+- Verification: inventory all current EN/ES taxonomy URLs before edits, then compare generated route membership and rendered post links for each tag/category. Confirm no cross-language post links. Compare structural/tag-style behavior without expecting identical random class assignments. Use focused checks for the affected query and view contracts.
+
+### S5 — Registry-driven language expansion
+
+Status: pending
+Depends on: S1–S4's shared components and locale-aware query/view contracts.
+
+- Replace the copied non-default-language route tree with generic registered-language routes; keep thin English route entrypoints. Consolidate About presentation with separate translated content and the shared technology grid.
+- Remove remaining obsolete locale-specific variants/adapters and confirmed unused Hero/HomePagination pairs after checking source references. Preserve existing assets and supported disabled-feature behavior, including FeaturedVideos, through a shared implementation.
+- Document the language-addition procedure: registry, dictionary, content/collection registration, localized content, and verification. Extend optional social-image configuration from the locale contract rather than maintaining a separate hardcoded language list.
+- Acceptance: current route/content/metadata parity holds end to end; unsupported language prefixes do not produce invented pages; no language-specific component/template or route-tree copy is required to register another language. About copy/order/grid remains intact; no unused compatibility wrappers or ES presentation copies remain.
+- Verification: compare the complete EN/ES route inventory and rendered text/links/head data to the established baseline, including pagination, taxonomy, 404, RSS discovery, and articles with body images. Exercise navigation and theme controls after language changes, verify short/long-page footer placement, and inspect import references for removed variants. Assess the documented language-addition path against actual registry/schema/route ownership without publishing a fictitious language. Use focused checks and disclose unavailable production proof.
+- Boundary: adding real languages, translation-pair models, hreflang expansion, translated feeds, artwork integration, and framework upgrades remain separate work. Current behavior differences and known baseline limitations are not permission for unrelated changes.
+
+## Current progress
+
+- Current slice: S1 (pending; not started).
+- Next action: await the human's request in a new session to execute S1 from this approved plan.
