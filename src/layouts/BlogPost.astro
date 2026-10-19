@@ -6,14 +6,16 @@ import CalendarIcon from '@icons/CalendarIcon.astro';
 import CategoryIcon from '@icons/CategoryIcon.astro';
 import { Image } from 'astro:assets';
 import config from '@config/config.json';
+import type { Locale } from '@config/locales';
+import { localizedPath } from '@utils/localized-path';
 import { slugify } from '@utils/slug';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog' | 'blogES'>['data'] & { locale: Locale };
 
-const { title, description, pubDate, updatedDate, categories, tags } = Astro.props;
+const { locale, title, description, pubDate, updatedDate, categories, tags } = Astro.props;
 ---
 
-<Base meta_title={title} description={description} pubDate={pubDate} updatedDate={updatedDate} blogpost>
+<Base locale={locale} meta_title={title} description={description} pubDate={pubDate} updatedDate={updatedDate} blogpost>
   <article>
     <div class="md:col-10 mb-12 text-center">
       <h1 class="text-2xl font-bold md:text-4xl">{title}</h1>
@@ -34,13 +36,16 @@ const { title, description, pubDate, updatedDate, categories, tags } = Astro.pro
         </div>
         <div class="mx-3 mt-2 flex flex-wrap items-center font-medium">
           <CalendarIcon />
-          <FormattedDate date={pubDate} />
+          <FormattedDate date={pubDate} locale={locale} />
         </div>
         <div class="mx-3 mt-2 flex flex-wrap items-center font-medium">
           <CategoryIcon />
           {
             categories?.slice(0, 1).map((category) => (
-              <a href={`/categories/${slugify(category)}`} class="hover:text-primary mr-2 font-medium capitalize">
+              <a
+                href={localizedPath(locale, `/categories/${slugify(category)}`)}
+                class="hover:text-primary mr-2 font-medium capitalize"
+              >
                 {category}
               </a>
             ))
@@ -55,7 +60,7 @@ const { title, description, pubDate, updatedDate, categories, tags } = Astro.pro
       {
         tags?.map((tag) => (
           <a
-            href={`/tags/${slugify(tag)}`}
+            href={localizedPath(locale, `/tags/${slugify(tag)}`)}
             class="mb-2 mr-2 inline-block rounded-full bg-zinc-200 px-3 py-1 text-sm font-semibold capitalize text-zinc-700 dark:bg-zinc-900 dark:text-zinc-400"
           >
             #{tag}

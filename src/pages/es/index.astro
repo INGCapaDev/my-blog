@@ -1,12 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
-import Base from '@layouts/BaseES.astro';
+import Base from '@layouts/Base.astro';
 import Posts from '@layouts/PostsES.astro';
 
 const posts = (await getCollection('blogES')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<Base>
+<Base locale="es">
   <h1 class="mb-10 text-3xl font-semibold tracking-tight">Blog</h1>
   <Posts posts={posts} />
 </Base>

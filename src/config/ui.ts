@@ -11,6 +11,7 @@ interface UiDictionary {
   };
   changeLanguage: string;
   themeToggle: string;
+  rssTitle: string;
   footer: {
     madeWith: string;
     location: string;
@@ -29,6 +30,7 @@ export const ui = {
     },
     changeLanguage: 'Change Language',
     themeToggle: 'Theme Toggle',
+    rssTitle: 'RSS (English)',
     footer: {
       madeWith: 'Made with',
       location: 'in Mexico. by',
@@ -45,6 +47,7 @@ export const ui = {
     },
     changeLanguage: 'Cambiar Idioma',
     themeToggle: 'Theme Toggle',
+    rssTitle: 'RSS (inglés)',
     footer: {
       madeWith: 'Hecho con',
       location: 'en Mexico. por',

@@ -87,7 +87,7 @@ Evidence (2026-10-19):
 
 ### S2 — Shared document and article layouts
 
-Status: pending
+Status: complete
 Depends on: S1's locale contract and shared shell components.
 
 - Consolidate Base, BlogPost, and FormattedDate using explicit locale props. Migrate their consumers; any transitional adapter must be a pass-through rather than another markup/metadata owner and must be removed by final migration.
@@ -95,6 +95,18 @@ Depends on: S1's locale contract and shared shell components.
 - Acceptance: one document template and one article template render both languages; current titles, descriptions, canonical URLs, article dates, JSON-LD, author metadata, body formatting, and content images match. No schema appears on non-article pages; no artwork appears when unconfigured.
 - Verification: compare rendered heads and parsed JSON-LD on both homepages, archive pages, About, 404, and representative English/Spanish articles. Verify relative/absolute canonical overrides, absence of optional dates/images, and JSON-LD escaping where feasible using existing tools. Check client-side home/article/language navigation for stale metadata, theme handlers, or doubled analytics. Recheck footer geometry on short and long pages.
 - Boundary: retain English GTM+GA versus Spanish GA-only behavior. No analytics migration or broad lint repair. Recommend a focused review if unresolved compatibility/security uncertainty remains in the actual candidate; do not dispatch without approval.
+
+Evidence (2026-10-19):
+
+- S1 accepted and committed as `c5fab63`; S2 started from the resulting clean worktree/index. Base, BlogPost, and FormattedDate now require an explicit locale. All route consumers pass their existing language; removed ES variants have no remaining source references. Translated article files, content schemas, listing/pagination owners, and route generation remain unchanged for later slices.
+- Registry now owns document descriptions/OG locales (sourced from existing configuration), date locales, favicon relation differences, and GTM activation. RSS discovery wording comes from typed UI dictionaries; both languages still advertise the English feed. Shared author/branding/features remain sourced from `config.json`; final legacy config cleanup remains for later migration.
+- GTM's unchanged loader moved to `src/scripts/google-tag-manager.js`, referenced as a conditional external module via Vite's `?url` import. This preserves English-only emission and module-once execution instead of relying on Astro's processed-script hoisting. GA/Partytown initialization is unchanged and emitted once in each language. The shared noscript iframe remains English-only. Installed Astro 3.2.3 router inspection confirms it strips noscript elements during client-side swaps; verification accounts for that existing behavior.
+- Before/after browser snapshots cover home, About, archive, and two representative articles per language, plus shared 404, at widths 390 and 1280 (22 snapshots). Head metadata, parsed JSON-LD, document language, normalized main text, publication dates, body images, internal links, navigation/footer text, and exact shell geometry match. Schema and optional artwork remain absent on ordinary/unconfigured pages; short/long-page footer behavior is unchanged.
+- Browser clicks at both widths preserve single-toggle theme behavior across About and language changes. Additional home/article/language navigation from direct EN and direct ES loads confirms current article metadata, removal of stale schema on homepages, one GA tag, English-only GTM module/noscript SSR emission, and one GTM initialization across repeated language changes. This verifies emitted tags/loader initialization, not analytics delivery to external services.
+- Temporary dynamic routes exercised relative/absolute canonical overrides, modified-date presence/absence, configured/unconfigured artwork, no article schema on ordinary pages, and a closing-script payload in title/description. Canonicals and schema values matched; JSON-LD escaped every `<`, parsed correctly, and executed no injected script. Fixtures were removed, with their route returning 404. Subsequent final-candidate parity/theme/analytics checks pass; fixture evidence is reused for the unchanged metadata logic.
+- Focused ESLint passes for changed non-Base components, registry/dictionaries, GTM loader, and route entrypoints. Shared Base reports only the two existing analytics issue kinds (unqualified `dataLayer`, iframe title); the third former report disappeared with the duplicate BaseES owner. Prettier checks pass for substantive changed owners; mechanical route edits retain surrounding formatting. Focused TypeScript 5.2.2 checks pass for registry/dictionaries/link helper. Final diff/new files inspected; `git diff --check` passes.
+- No production build, full Astro typecheck, independent review, or maintained test suite added/run. Production asset emission and downstream analytics delivery are not runtime-proven. Browser script/snapshots remain outside the repository at `C:\Users\ftaca\AppData\Local\Temp\opencode\multilingual-s1-check.mjs` and `multilingual-s2-{before,after}.json`. S2 remains uncommitted and awaits human acceptance; S3 has not started.
+- Human accepted S2 and authorized its commit plus continuation with “commit and continue”.
 
 ### S3 — Shared post discovery and pagination
 
@@ -128,5 +140,5 @@ Depends on: S1–S4's shared components and locale-aware query/view contracts.
 
 ## Current progress
 
-- Current slice: S2 (pending).
-- Next action: capture S2 baseline and consolidate document/article layouts with explicit locale props.
+- Current slice: S3 (pending).
+- Next action: capture homepage/archive baseline and consolidate post discovery and pagination.

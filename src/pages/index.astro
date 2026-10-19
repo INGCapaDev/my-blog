@@ -6,7 +6,7 @@ import Posts from '@layouts/Posts.astro';
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<Base>
+<Base locale="en">
   <h1 class="mb-10 text-3xl font-semibold tracking-tight">Blog</h1>
   <Posts posts={posts} />
 </Base>
