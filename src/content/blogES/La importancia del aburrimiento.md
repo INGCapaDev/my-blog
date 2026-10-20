@@ -1,4 +1,5 @@
 ---
+translationKey: boredom-benefits
 title: Los Beneficios Ocultos del Aburrimiento
 description: Aprende sobre los beneficios del aburrimiento, cómo puede aumentar la creatividad, el equilibrio mental y la autorreflexión. Descubre algunos consejos prácticos para convertir el aburrimiento en oportunidades de crecimiento personal y bienestar.
 pubDate: 2024-07-01

@@ -1,4 +1,5 @@
 ---
+translationKey: start-creating-content
 title: Comienza a crear contenido
 description: En mi primer post, te animo a empezar a crear contenido ahora mismo y descubrir cómo puede beneficiarte y convertirse en una herramienta valiosa en el futuro.
 pubDate: 2023-10-16

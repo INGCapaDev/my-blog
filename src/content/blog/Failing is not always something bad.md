@@ -1,4 +1,5 @@
 ---
+translationKey: embracing-failure
 title: Failing is not always something bad
 description: Discover why it is crucial to recognize our mistakes and embrace failure as a tool for growth.
 pubDate: 2023-11-15

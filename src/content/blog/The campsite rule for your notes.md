@@ -1,4 +1,5 @@
 ---
+translationKey: campsite-rule
 title: The "Campsite Rule" for your notes
 description: Optimize your notes using the "Campsite Rule" to make them a more valuable and useful resource for the future.
 pubDate: 2023-10-30

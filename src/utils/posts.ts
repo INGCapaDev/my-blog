@@ -15,6 +15,20 @@ export async function getPosts(locale: Locale): Promise<Post[]> {
   return posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 }
 
+export async function getTranslatedPost(locale: Locale, slug: string, targetLocale: Locale): Promise<Post | undefined> {
+  const post = (await getPostEntries(locale)).find((entry) => entry.slug === slug);
+  const translationKey = post?.data.translationKey;
+  if (translationKey === undefined) return undefined;
+
+  const translations = (await getPostEntries(targetLocale)).filter(
+    (entry) => entry.data.translationKey === translationKey
+  );
+  if (translations.length > 1) {
+    throw new Error(`Duplicate translation key "${translationKey}" in locale "${targetLocale}"`);
+  }
+  return translations[0];
+}
+
 export async function getPostPages(locale: Locale, paginate: PaginateFunction) {
   return paginate(await getPosts(locale), {
     pageSize: config.site.pageSize,

@@ -1,4 +1,5 @@
 ---
+translationKey: authentic-life
 title: 4 Principios para vivir una vida auténtica
 description: Descubre los cuatro principios para vivir una vida auténtica y maximizar tu potencial, inspirados en la charla de Graham Weaver, CEO de Alpine Investors.
 pubDate: 2023-10-22

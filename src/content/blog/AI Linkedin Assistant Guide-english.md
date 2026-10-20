@@ -1,4 +1,5 @@
 ---
+translationKey: ai-linkedin-assistant
 title: Build Your AI Assistant for Your Personal Brand (and reclaim your time) 
 description: Learn how to build a custom AI agent that writes like you, keeps your voice, and helps you stay consistent on LinkedIn
 pubDate: 2025-08-07 

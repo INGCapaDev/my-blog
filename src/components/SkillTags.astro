@@ -1,0 +1,26 @@
+---
+const skills = [
+  'HTML',
+  'CSS / Tailwind CSS',
+  'JavaScript / TypeScript',
+  'Git / GitHub',
+  'Node.js / Express.js / NestJS',
+  'SQL / SQLite / Drizzle',
+  'Firebase',
+  'Neo4j',
+  'React / Next.js',
+  'Astro',
+  'Docker',
+  'Cloudflare / Vercel / Google Cloud',
+];
+---
+
+<ul class="not-prose m-0 inline-flex list-none flex-wrap gap-2 p-0">
+  {
+    skills.map((skill) => (
+      <li class="m-0 rounded-md bg-zinc-100 px-[0.6rem] py-[0.2rem] text-[0.8rem] font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
+        {skill}
+      </li>
+    ))
+  }
+</ul>

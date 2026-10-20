@@ -1,4 +1,5 @@
 ---
+translationKey: ai-linkedin-assistant
 title: Crea tu Asistente de AI para tu marca personal (y recupera tiempo) 
 description: Aprende a construir un agente de inteligencia artificial personalizado que escriba como tu, mantenga tu voz y te ayude a ser constante en Linkedin
 pubDate: 2025-08-07 

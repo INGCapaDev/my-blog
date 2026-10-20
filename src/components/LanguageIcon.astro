@@ -1,7 +1,7 @@
 ---
 import { locales, supportedLocales, type Locale } from '@config/locales';
 import { ui } from '@config/ui';
-import { localizedPath } from '@utils/localized-path';
+import { getLanguageSwitchPath } from '@utils/language-switch';
 
 interface Props {
   locale: Locale;
@@ -9,12 +9,20 @@ interface Props {
 
 const { locale } = Astro.props;
 const otherLocales = supportedLocales.filter((language) => language !== locale);
+const languageLinks = await Promise.all(
+  otherLocales.map(async (language) => ({
+    language,
+    href: await getLanguageSwitchPath(Astro.url.pathname, locale, language),
+  }))
+);
 ---
 
 {
-  otherLocales.map((language) => (
+  languageLinks.map(({ language, href }) => (
     <a
-      href={localizedPath(language)}
+      href={href}
+      lang={language}
+      hreflang={language}
       class="m-0 h-6 w-6 p-0"
       id={otherLocales.length === 1 ? 'langDark' : undefined}
       title={ui[locale].changeLanguage}

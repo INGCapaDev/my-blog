@@ -1,4 +1,5 @@
 ---
+translationKey: power-of-silence
 title: The power of silence
 description: Explore the significance of silence in everyday life and how it can positively influence various aspects of it.
 pubDate: 2023-11-25
