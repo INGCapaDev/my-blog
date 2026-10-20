@@ -41,7 +41,11 @@ export default defineConfig({
       },
       drafts: true,
     }),
-    Compress(),
+    Compress({
+      HTML: {
+        removeAttributeQuotes: false,
+      },
+    }),
     sitemap(),
     tailwind(),
     robotsTxt(),
