@@ -1,6 +1,4 @@
-import type { PaginateFunction } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import config from '@config/config.json';
 import { locales, type Locale } from '@config/locales';
 import { getLocaleParams } from './localized-path';
 
@@ -27,14 +25,6 @@ export async function getTranslatedPost(locale: Locale, slug: string, targetLoca
     throw new Error(`Duplicate translation key "${translationKey}" in locale "${targetLocale}"`);
   }
   return translations[0];
-}
-
-export async function getPostPages(locale: Locale, paginate: PaginateFunction) {
-  return paginate(await getPosts(locale), {
-    pageSize: config.site.pageSize,
-    params: getLocaleParams(locale),
-    props: { locale },
-  });
 }
 
 export async function getArticlePages(locale: Locale) {
