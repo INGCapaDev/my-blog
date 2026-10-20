@@ -1,38 +1,6 @@
 ---
-import Base from '@layouts/Base.astro';
-import Page from '@layouts/Page.astro';
-import Techicon from '@layouts/Techicon.astro';
-import technologies from '@config/technologies';
+import About from '@layouts/About.astro';
+import { defaultLocale } from '@config/locales';
 ---
 
-<Base meta_title="About">
-  <Page title="About Me">
-    <p>
-      I am a technology enthusiast 🤖 and passionate about programming 👨‍💻, with a special focus on web development. My
-      mission is to create impactful and functional digital experiences that make people's lives easier and more
-      exciting.
-    </p>
-
-    <h2>What inspires me</h2>
-    <ul>
-      <li>🌿 I am committed to growing and improving in all aspects of my life, both personally and professionally.</li>
-      <li>⌛ I love exploring personal development and productivity to reach my full potential.</li>
-      <li>🫂 I enjoy collaborating in creative teams and working with people who share my passion for technology.</li>
-    </ul>
-
-    <h2>Technologies ⚙️</h2>
-
-    <div
-      class="grid grid-cols-[repeat(auto-fill,minmax(4rem,1fr))] gap-4 px-4 pt-4 md:grid-cols-[repeat(auto-fill,minmax(6rem,1fr))]"
-    >
-      {technologies.map((techicon) => <Techicon {...techicon} />)}
-    </div>
-
-    <h2>My Goal 🎯</h2>
-    <p>
-      My goal is to share my knowledge and experience in web development through this blog. Here, you will find articles
-      about the latest technological trends, programming tips, and reflections on the digital world.
-    </p>
-    <p>Come join me on this journey, and let's explore the exciting world of technology and programming together! 🚀</p>
-  </Page>
-</Base>
+<About locale={defaultLocale} />

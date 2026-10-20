@@ -2,7 +2,6 @@
 title: Comienza a crear contenido
 description: En mi primer post, te animo a empezar a crear contenido ahora mismo y descubrir cómo puede beneficiarte y convertirse en una herramienta valiosa en el futuro.
 pubDate: 2023-10-16
-heroImage: https://images.pexels.com/photos/7129700/pexels-photo-7129700.jpeg
 categories:
   - General
 tags:

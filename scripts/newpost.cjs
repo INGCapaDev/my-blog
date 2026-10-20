@@ -73,7 +73,6 @@ rl.on('close', () => {
 title: '${postData.title}'
 description: ''
 pubDate: '${postData.date}'
-heroImage: '/blog-placeholder.jpg'
 categories: [""]
 tags: [""]
 author: '["${postData.author}"]'

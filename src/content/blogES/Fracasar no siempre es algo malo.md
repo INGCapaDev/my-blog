@@ -2,7 +2,6 @@
 title: Fracasar no siempre es algo malo
 description: Descubre por qué es crucial reconocer nuestros errores y abrazar el fracaso como una herramienta para el crecimiento.
 pubDate: 2023-11-15
-heroImage: https://images.pexels.com/photos/897817/pexels-photo-897817.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 categories:
   - Self-Improvement
 tags:

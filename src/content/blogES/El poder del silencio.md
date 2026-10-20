@@ -2,7 +2,6 @@
 title: El poder del silencio
 description: Descubre la importancia del silencio en la vida cotidiana y como puede influir positivamente en distintos aspectos de esta.
 pubDate: 2023-11-25
-heroImage: https://images.pexels.com/photos/54539/pexels-photo-54539.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 categories:
   - Life
 tags:

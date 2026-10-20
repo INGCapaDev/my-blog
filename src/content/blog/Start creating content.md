@@ -2,7 +2,6 @@
 title: Start creating content
 description: In my first post, I encourage you to start creating content right now and discover how it can benefit you and become a valuable tool in the future.
 pubDate: 2023-10-16
-heroImage: https://images.pexels.com/photos/7129700/pexels-photo-7129700.jpeg
 categories:
   - General
 tags:

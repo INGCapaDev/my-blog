@@ -1,0 +1,19 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '@layouts/Base.astro';
+import Page from '@layouts/Page.astro';
+import { locales, type Locale } from '@config/locales';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const entry = await getEntry('about', locales[locale].about);
+if (!entry) throw new Error(`Missing About content for locale: ${locale}`);
+const { Content } = await entry.render();
+---
+
+<Base locale={locale} meta_title={entry.data.metaTitle}>
+  <Page title={entry.data.title}><Content /></Page>
+</Base>

@@ -2,7 +2,6 @@
 title: Build Your AI Assistant for Your Personal Brand (and reclaim your time) 
 description: Learn how to build a custom AI agent that writes like you, keeps your voice, and helps you stay consistent on LinkedIn
 pubDate: 2025-08-07 
-heroImage: https://6dxqfoy4g1.ufs.sh/f/9cuWqzvE7f2SQaW9SallQ9eMJ2xwBpcHmFyjUfizRI1KbLE8
 categories:
   - AI
 tags:

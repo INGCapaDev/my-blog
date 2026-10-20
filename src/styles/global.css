@@ -1,10 +1,34 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource/dm-mono/400.css';
+@import '@fontsource/dm-mono/500.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply text-base leading-7 text-zinc-700 antialiased dark:text-zinc-300;
+  }
+
+  :focus-visible {
+    @apply rounded-sm outline outline-2 outline-offset-4 outline-zinc-500;
+  }
+
   .prose code {
-    @apply text-base;
+    @apply font-mono;
+  }
+
+  .prose pre {
+    @apply max-w-full overflow-x-auto font-mono;
+  }
+
+  .prose :where(p, li, a) {
+    overflow-wrap: anywhere;
+  }
+
+  .prose table {
+    @apply block max-w-full overflow-x-auto;
   }
   h1,
   h2,
@@ -36,18 +60,6 @@
 .video-wrapper iframe {
   width: 100%;
   height: 100%;
-}
-
-input#nav-toggle:checked ~ label#show-button {
-  @apply hidden;
-}
-
-input#nav-toggle:checked ~ label#hide-button {
-  @apply flex md:hidden;
-}
-
-input#nav-toggle:checked ~ #nav-menu {
-  @apply block md:flex;
 }
 
 .sun {

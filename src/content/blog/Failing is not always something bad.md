@@ -2,7 +2,6 @@
 title: Failing is not always something bad
 description: Discover why it is crucial to recognize our mistakes and embrace failure as a tool for growth.
 pubDate: 2023-11-15
-heroImage: https://images.pexels.com/photos/897817/pexels-photo-897817.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 categories:
   - Self-Improvement
 tags:

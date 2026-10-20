@@ -1,29 +1,22 @@
 import { defineCollection, z } from 'astro:content';
 
-const blog = defineCollection({
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z.coerce.date(),
-    updatedDate: z.coerce.date().optional(),
-    heroImage: z.string().optional(),
-    categories: z.array(z.string()).default(['others']),
-    tags: z.array(z.string()).default(['others']),
-    authors: z.array(z.string()).default(['ingcapadev']),
-  }),
+const postSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  pubDate: z.coerce.date(),
+  updatedDate: z.coerce.date().optional(),
+  categories: z.array(z.string()).default(['others']),
+  tags: z.array(z.string()).default(['others']),
+  authors: z.array(z.string()).default(['ingcapadev']),
 });
 
-const blogES = defineCollection({
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z.coerce.date(),
-    updatedDate: z.coerce.date().optional(),
-    heroImage: z.string().optional(),
-    categories: z.array(z.string()).default(['others']),
-    tags: z.array(z.string()).default(['others']),
-    authors: z.array(z.string()).default(['ingcapadev']),
+export const collections = {
+  blog: defineCollection({ schema: postSchema }),
+  blogES: defineCollection({ schema: postSchema }),
+  about: defineCollection({
+    schema: z.object({
+      title: z.string(),
+      metaTitle: z.string(),
+    }),
   }),
-});
-
-export const collections = { blog, blogES };
+};

@@ -2,7 +2,6 @@
 title: "Neo4j Essentials: Navigating the world of graph databases"
 description: Explore Neo4j, the innovative graph database, and unlock the power of interconnected data. From its flexible architecture to the transformative Cypher query language, Neo4j Essentials is an introduction to the  graph databases.
 pubDate: 2024-03-02
-heroImage: https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 categories:
   - Technology
 tags:

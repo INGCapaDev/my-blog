@@ -2,7 +2,6 @@
 title: The power of silence
 description: Explore the significance of silence in everyday life and how it can positively influence various aspects of it.
 pubDate: 2023-11-25
-heroImage: https://images.pexels.com/photos/54539/pexels-photo-54539.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
 categories:
   - Life
 tags:

@@ -1,64 +1,86 @@
 ---
 import Header from '@components/Header.astro';
-import Hero from '@components/Hero.astro';
 import FeaturedVideos from '@components/FeaturedVideos.astro';
 import Footer from '@components/Footer.astro';
 import config from '@config/config.json';
-import { createOgImage } from '@utils/createOgImage';
+import { locales, type Locale } from '@config/locales';
+import { ui } from '@config/ui';
+import { socialImages, type SocialImage } from '@config/social-images';
+import googleTagManagerUrl from '../scripts/google-tag-manager.js?url';
 
 import '@styles/global.css';
 
 import { ViewTransitions } from 'astro:transitions';
 
-export interface Props {
+interface PageMetadata {
+  locale: Locale;
   title?: string;
   meta_title?: string;
   description?: string;
-  image?: string;
   noindex?: boolean;
   canonical?: string;
-  blogpost?: boolean;
+  ogImage?: SocialImage;
 }
 
-const { title, meta_title, description, noindex, blogpost } = Astro.props;
+export type Props = PageMetadata &
+  ({ blogpost: true; pubDate: Date; updatedDate?: Date } | { blogpost?: false; pubDate?: never; updatedDate?: never });
 
-const ogImage = createOgImage({
-  title: meta_title ? meta_title : title ? title : config.site.title,
-  meta: [config.site.title, config.site.base_url].join(' · '),
-});
+const {
+  locale,
+  title,
+  meta_title,
+  description,
+  noindex,
+  canonical,
+  blogpost,
+  pubDate,
+  updatedDate,
+  ogImage = socialImages[locale],
+} = Astro.props;
+const localeConfig = locales[locale];
+const pageTitle = meta_title ?? title ?? config.site.title;
+const pageDescription = description ?? localeConfig.description;
+const siteOrigin = Astro.site ?? config.site.base_url;
+const canonicalUrl = new URL(canonical ?? Astro.url.pathname, siteOrigin).href;
+const imageUrl = ogImage ? new URL(ogImage.path, siteOrigin).href : undefined;
+
+function getArticleSchema() {
+  if (!blogpost) return undefined;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: pageTitle,
+    description: pageDescription,
+    url: canonicalUrl,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+    datePublished: pubDate.toISOString(),
+    dateModified: updatedDate?.toISOString(),
+    inLanguage: locale,
+    author: { '@type': 'Person', name: config.author.name },
+    image: imageUrl,
+  };
+}
+
+const articleSchema = getArticleSchema();
 ---
 
 <!doctype html>
-<html lang={config.site.lang}>
+<html lang={locale}>
   <head>
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-KP6DTBHJ');
-    </script>
-    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8" />
+    {localeConfig.googleTagManager && <script type="module" src={googleTagManagerUrl} />}
     <!-- favicon -->
-    <link rel='shortcut icon' href={config.site.favicon} />
-    <link rel='icon' href={config.site.favicon} />
-    <!-- theme meta -->
-    <meta name='theme-name' content='bookworm-light-astro' />
-    <meta name='msapplication-TileColor' content='#000000' />
-    <meta name='theme-color' media='(prefers-color-scheme: light)' content='#fff' />
-    <meta name='generator' content={Astro.generator} />
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    {localeConfig.faviconRels.map((rel) => <link rel={rel} href={config.site.favicon} />)}
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#18181b" />
+    <meta name="generator" content={Astro.generator} />
     <!-- responsive meta -->
-    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=5' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <!-- Google tag (gtag.js) -->
-    <script type='text/partytown' async src='https://www.googletagmanager.com/gtag/js?id=G-DVRWKZ2Y09'></script>
-    <script type='text/partytown'>
+    <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-DVRWKZ2Y09"></script>
+    <script type="text/partytown">
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
@@ -68,51 +90,82 @@ const ogImage = createOgImage({
       gtag('config', 'G-DVRWKZ2Y09');
     </script>
 
-    <title>{meta_title ? meta_title : title ? title : config.site.title}</title>
-    <meta name='title' content={meta_title ? meta_title : title ? title : config.site.title} />
-    <link rel='canonical' href={`${config.site.base_url}/${Astro.url.pathname.replace('/', '')}`} item-prop='url' />
-    {noindex && <meta name='robots' content='noindex,nofollow' />}
-    <meta name='description' content={description ? description : config.metadata.meta_description} />
-    <!-- author from config.json -->
-    <meta name='author' content={config.metadata.meta_author} />
-    <!-- og-title -->
-    <meta property='og:title' content={meta_title ? meta_title : title ? title : config.site.title} />
-    <!-- og-description -->
-    <meta property='og:description' content={description ? description : config.metadata.meta_description} />
-    <meta property='og:type' content='website' />
-    <meta property='og:url' content={`${config.site.base_url}/${Astro.url.pathname.replace('/', '')}`} />
+    <title>{pageTitle}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${config.site.title} — ${ui[locale].rssTitle}`}
+      hreflang="en"
+      href={new URL('/rss.xml', siteOrigin).href}
+    />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <meta name="description" content={pageDescription} />
+    <meta name="author" content={config.metadata.meta_author} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content={blogpost ? 'article' : 'website'} />
+    <meta property="og:site_name" content={config.site.title} />
+    <meta property="og:locale" content={localeConfig.ogLocale} />
+    <meta property="og:url" content={canonicalUrl} />
+    {
+      blogpost && (
+        <>
+          <meta property="article:published_time" content={pubDate.toISOString()} />
+          {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
+        </>
+      )
+    }
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    {
+      ogImage && (
+        <>
+          <meta property="og:image" content={imageUrl} />
+          <meta property="og:image:alt" content={ogImage.alt} />
+          <meta property="og:image:width" content={String(ogImage.width)} />
+          <meta property="og:image:height" content={String(ogImage.height)} />
+          <meta name="twitter:image" content={imageUrl} />
+          <meta name="twitter:image:alt" content={ogImage.alt} />
+        </>
+      )
+    }
+    {
+      articleSchema && (
+        <script type="application/ld+json" set:html={JSON.stringify(articleSchema).replace(/</g, '\\u003c')} />
+      )
+    }
 
-    <!-- twitter-title -->
-    <meta name='twitter:title' content={meta_title ? meta_title : title ? title : config.site.title} />
-    <!-- twitter-description -->
-    <meta name='twitter:description' content={description ? description : config.metadata.meta_description} />
-    <!-- og-image -->
-    <meta property='og:image' content={ogImage} />
-    <!-- twitter-image -->
-    <meta name='twitter:image' content={ogImage} />
-    <meta name='twitter:card' content='summary_large_image' />
-
-    <script is:inline src='/registerSW.js'></script>
-    <link rel='manifest' href='/manifest.webmanifest' />
+    {
+      import.meta.env.PROD && (
+        <>
+          <script is:inline src="/registerSW.js" />
+          <link rel="manifest" href="/manifest.webmanifest" />
+        </>
+      )
+    }
     <ViewTransitions />
   </head>
-  <body class='bg-white dark:bg-zinc-900/95'>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src='https://www.googletagmanager.com/ns.html?id=GTM-KP6DTBHJ'
-        height='0'
-        width='0'
-        style='display:none;visibility:hidden'></iframe></noscript
-    >
-    <!-- End Google Tag Manager (noscript) -->
-    <Header />
-    {!blogpost && <Hero />}
-    <main class='mx-auto max-w-screen-lg px-4 py-8 sm:px-6 sm:py-12 lg:px-8'>
+  <body class="flex min-h-screen flex-col bg-white dark:bg-zinc-900">
+    {
+      localeConfig.googleTagManager && (
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KP6DTBHJ"
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+          />
+        </noscript>
+      )
+    }
+    <Header locale={locale} />
+    <main class="mx-auto w-full max-w-[calc(65ch+3rem)] flex-1 px-6 py-10 sm:py-16">
       <slot />
     </main>
-    {!blogpost && config.features.youtube && <FeaturedVideos />}
-    <Footer />
+    {!blogpost && config.features.youtube && <FeaturedVideos locale={locale} />}
+    <Footer locale={locale} />
     <script>
       // This is a hack to get vite-plugin-pwa to generate a sw.js file.
       // Do not remove this script tag.

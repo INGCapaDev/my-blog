@@ -1,0 +1,19 @@
+---
+import Base from '@layouts/Base.astro';
+import Posts from '@layouts/Posts.astro';
+import type { Locale } from '@config/locales';
+import { ui } from '@config/ui';
+import type { Post } from '@utils/posts';
+
+interface Props {
+  locale: Locale;
+  posts: Post[];
+}
+
+const { locale, posts } = Astro.props;
+---
+
+<Base locale={locale}>
+  <h1 class="mb-10 text-3xl font-semibold tracking-tight">{ui[locale].blogTitle}</h1>
+  <Posts posts={posts} locale={locale} />
+</Base>

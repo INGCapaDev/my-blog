@@ -1,10 +1,11 @@
 import type { ManifestOptions } from 'vite-plugin-pwa';
 import config from '../config/config.json';
+import { defaultLocale, locales } from '../config/locales';
 
 export const manifest: Partial<ManifestOptions> = {
   name: config.site.title,
   short_name: config.site.title,
-  description: config.site.description,
+  description: locales[defaultLocale].siteDescription,
   theme_color: '#ffffff',
   background_color: '#0e0d0d',
   display: 'minimal-ui',

@@ -1,0 +1,14 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import TaxonomyPosts from '@layouts/TaxonomyPosts.astro';
+import { nonDefaultLocales } from '@config/locales';
+import { getTaxonomyPages } from '@utils/taxonomy';
+
+export async function getStaticPaths() {
+  return (await Promise.all(nonDefaultLocales.map((locale) => getTaxonomyPages(locale, 'tags')))).flat();
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+---
+
+<TaxonomyPosts {...Astro.props} />

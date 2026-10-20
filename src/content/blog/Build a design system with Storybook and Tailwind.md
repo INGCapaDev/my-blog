@@ -2,7 +2,6 @@
 title: How to Create a Design System with Storybook and Tailwind (React) - A Step-by-Step Guide
 description: Learn how to build a scalable design system from scratch using Storybook and Tailwind CSS in React. Perfect for developers looking to create consistent, maintainable UI components.
 pubDate: 2025-04-18
-heroImage: https://6dxqfoy4g1.ufs.sh/f/9cuWqzvE7f2SddKHhdVVRea2NDfckQTZ8x3twq6irWd5LAGu
 categories:
   - Development
 tags:

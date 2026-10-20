@@ -1,0 +1,14 @@
+---
+import type { GetStaticPathsOptions, InferGetStaticPropsType } from 'astro';
+import BlogListing from '@layouts/BlogListing.astro';
+import { nonDefaultLocales } from '@config/locales';
+import { getPostPages } from '@utils/posts';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  return (await Promise.all(nonDefaultLocales.map((locale) => getPostPages(locale, paginate)))).flat();
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+---
+
+<BlogListing {...Astro.props} />

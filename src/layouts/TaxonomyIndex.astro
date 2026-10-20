@@ -1,0 +1,62 @@
+---
+import Base from '@layouts/Base.astro';
+import CategoryIcon from '@icons/CategoryIcon.astro';
+import type { Locale } from '@config/locales';
+import { ui } from '@config/ui';
+import { localizedPath } from '@utils/localized-path';
+import type { Taxonomy, TaxonomyTerm } from '@utils/taxonomy';
+
+interface Props {
+  locale: Locale;
+  taxonomy: Taxonomy;
+  terms: TaxonomyTerm[];
+}
+
+const { locale, taxonomy, terms } = Astro.props;
+const labels = ui[locale].taxonomy[taxonomy];
+const isTagCloud = taxonomy === 'tags';
+const tagClasses = [
+  'text-3xl capitalize text-neutral-800 dark:text-neutral-200',
+  'text-xl capitalize text-neutral-700 dark:text-neutral-300',
+  'text-md capitalize text-neutral-600 dark:text-neutral-400',
+  'text-lg capitalize text-neutral-700 dark:text-neutral-300',
+  'text-sm capitalize text-neutral-600 dark:text-neutral-400',
+  'text-lg capitalize text-neutral-600 dark:text-neutral-400',
+  'text-4xl capitalize text-neutral-900 dark:text-neutral-100',
+  'text-xs capitalize text-neutral-600 dark:text-neutral-400',
+];
+
+function getTagClass(): string {
+  return `${
+    tagClasses[Math.floor(Math.random() * tagClasses.length)]
+  } transition-colors hover:text-black dark:hover:text-white`;
+}
+---
+
+<Base locale={locale}>
+  <section class="grid grid-cols-1">
+    <h1 class="mb-8 text-2xl font-bold md:text-3xl">{labels.title}</h1>
+    <ul
+      class={isTagCloud
+        ? 'align-center flex flex-wrap justify-center gap-3'
+        : 'flex flex-wrap gap-3 text-zinc-500 dark:text-zinc-400'}
+    >
+      {
+        terms.map((term) => (
+          <li class={isTagCloud ? undefined : 'mr-4 flex items-center justify-between'}>
+            {!isTagCloud && <CategoryIcon />}
+            <a
+              class={
+                isTagCloud ? getTagClass() : 'text-lg capitalize text-zinc-500 hover:text-zinc-800 dark:text-zinc-400'
+              }
+              href={localizedPath(locale, `/${taxonomy}/${term.slug}`)}
+              title={`${labels.linkTitle} ${term.name}`}
+            >
+              {term.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

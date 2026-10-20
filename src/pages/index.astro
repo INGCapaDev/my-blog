@@ -1,13 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import HomePagination from '@components/HomePagination.astro';
-import Base from '@layouts/Base.astro';
-import Posts from '@layouts/Posts.astro';
+import Home from '@layouts/Home.astro';
+import { defaultLocale } from '@config/locales';
+import { getPosts } from '@utils/posts';
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = await getPosts(defaultLocale);
 ---
 
-<Base>
-  <Posts posts={posts} />
-  <HomePagination />
-</Base>
+<Home locale={defaultLocale} posts={posts} />

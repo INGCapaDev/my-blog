@@ -1,45 +1,9 @@
 ---
-import Base from '@layouts/Base.astro';
-import { getTaxonomy } from '@utils/getAllTags';
+import TaxonomyIndex from '@layouts/TaxonomyIndex.astro';
+import { defaultLocale } from '@config/locales';
+import { getTaxonomy } from '@utils/taxonomy';
 
-const _tags = await getTaxonomy('blog', 'tags');
-const uniqueTags = [...new Set(_tags.map((tag) => tag.name))];
-const tags = uniqueTags.map((name) => _tags.find((tag) => tag.name === name)) as typeof _tags;
-
-const textClasses: string[] = [
-  'text-3xl text-cyan-400 capitalize',
-  'text-xl text-teal-400 capitalize',
-  'text-md text-red-400 capitalize',
-  'text-lg text-green-400 capitalize',
-  'text-sm text-orange-400 capitalize',
-  'text-lg text-zinc-400 capitalize',
-  'text-4xl text-red-400 capitalize',
-  'text-xs text-cyan-400 capitalize',
-];
-
-const getRandomClass = (classList: string[]): string => {
-  const randomIndex: number = Math.floor(Math.random() * classList.length);
-  return classList[randomIndex];
-};
+const terms = await getTaxonomy(defaultLocale, 'tags');
 ---
 
-<Base>
-  <section class="grid grid-cols-1">
-    <h1 class="mb-8 text-2xl font-bold md:text-3xl">Tags:</h1>
-    <ul class="align-center flex flex-wrap justify-center gap-3">
-      {
-        tags.map((tag) => (
-          <li>
-            <a
-              class={getRandomClass(textClasses)}
-              href={`/tags/${tag.slug}`}
-              title={`View posts with the tag: ${tag.name}`}
-            >
-              {tag.name}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-</Base>
+<TaxonomyIndex locale={defaultLocale} taxonomy="tags" terms={terms} />

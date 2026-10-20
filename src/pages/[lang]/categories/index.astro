@@ -1,0 +1,13 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+import TaxonomyIndex from '@layouts/TaxonomyIndex.astro';
+import { getLocalePaths } from '@utils/localized-path';
+import { getTaxonomy } from '@utils/taxonomy';
+
+export const getStaticPaths = getLocalePaths;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { locale } = Astro.props;
+const terms = await getTaxonomy(locale, 'categories');
+---
+
+<TaxonomyIndex locale={locale} taxonomy="categories" terms={terms} />
