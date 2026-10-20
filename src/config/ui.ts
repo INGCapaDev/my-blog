@@ -22,10 +22,6 @@ interface UiDictionary {
   blogTitle: string;
   featuredVideosTitle: string;
   taxonomy: Record<Taxonomy, TaxonomyLabels>;
-  pagination: {
-    previous: string;
-    next: string;
-  };
   footer: {
     madeWith: string;
     location: string;
@@ -59,10 +55,6 @@ export const ui = {
         linkTitle: 'View posts with the tag:',
       },
     },
-    pagination: {
-      previous: 'Prev Page',
-      next: 'Next Page',
-    },
     footer: {
       madeWith: 'Made with',
       location: 'in Mexico. by',
@@ -93,10 +85,6 @@ export const ui = {
         detailTitle: 'Categoria:',
         linkTitle: 'View posts with the tag:',
       },
-    },
-    pagination: {
-      previous: 'Anterior',
-      next: 'Siguiente',
     },
     footer: {
       madeWith: 'Hecho con',

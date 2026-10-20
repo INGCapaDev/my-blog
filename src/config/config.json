@@ -3,8 +3,7 @@
     "title": "INGCapaDev Blog",
     "base_url": "https://blog.ingcapadev.com",
     "favicon": "/favicon.png",
-    "logo": "/logo_ingcapadev.webp",
-    "pageSize": 6
+    "logo": "/logo_ingcapadev.webp"
   },
   "features": {
     "youtube": false,
