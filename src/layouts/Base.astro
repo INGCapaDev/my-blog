@@ -19,7 +19,7 @@ interface PageMetadata {
   description?: string;
   noindex?: boolean;
   canonical?: string;
-  ogImage?: SocialImage;
+  ogImages?: SocialImage[];
 }
 
 export type Props = PageMetadata &
@@ -35,14 +35,18 @@ const {
   blogpost,
   pubDate,
   updatedDate,
-  ogImage = socialImages[locale],
+  ogImages = socialImages[locale],
 } = Astro.props;
 const localeConfig = locales[locale];
 const pageTitle = meta_title ?? title ?? config.site.title;
 const pageDescription = description ?? localeConfig.description;
 const siteOrigin = Astro.site ?? config.site.base_url;
 const canonicalUrl = new URL(canonical ?? Astro.url.pathname, siteOrigin).href;
-const imageUrl = ogImage ? new URL(ogImage.path, siteOrigin).href : undefined;
+const socialImageUrls = (ogImages ?? []).map((image) => ({
+  ...image,
+  url: new URL(image.path, siteOrigin).href,
+}));
+const primarySocialImage = socialImageUrls[0];
 
 function getArticleSchema() {
   if (!blogpost) return undefined;
@@ -58,7 +62,7 @@ function getArticleSchema() {
     dateModified: updatedDate?.toISOString(),
     inLanguage: locale,
     author: { '@type': 'Person', name: config.author.name },
-    image: imageUrl,
+    image: socialImageUrls.length > 0 ? socialImageUrls.map(({ url }) => url) : undefined,
   };
 }
 
@@ -118,16 +122,24 @@ const articleSchema = getArticleSchema();
     }
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:card" content={primarySocialImage ? 'summary_large_image' : 'summary'} />
     {
-      ogImage && (
+      socialImageUrls.map(({ url, alt, type, width, height }) => (
         <>
-          <meta property="og:image" content={imageUrl} />
-          <meta property="og:image:alt" content={ogImage.alt} />
-          <meta property="og:image:width" content={String(ogImage.width)} />
-          <meta property="og:image:height" content={String(ogImage.height)} />
-          <meta name="twitter:image" content={imageUrl} />
-          <meta name="twitter:image:alt" content={ogImage.alt} />
+          <meta property="og:image" content={url} />
+          <meta property="og:image:secure_url" content={url} />
+          <meta property="og:image:type" content={type} />
+          <meta property="og:image:width" content={String(width)} />
+          <meta property="og:image:height" content={String(height)} />
+          <meta property="og:image:alt" content={alt} />
+        </>
+      ))
+    }
+    {
+      primarySocialImage && (
+        <>
+          <meta name="twitter:image" content={primarySocialImage.url} />
+          <meta name="twitter:image:alt" content={primarySocialImage.alt} />
         </>
       )
     }
