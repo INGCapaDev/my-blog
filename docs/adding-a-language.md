@@ -8,7 +8,7 @@ English remains the unprefixed default; other languages use one registered prefi
 2. Add a BCP 47 language key to `src/config/locales.ts`. Supply its unique single-segment prefix, display name, website target, regional article date locale, registered post collection, About entry slug, short site description, default metadata description, OG locale, favicon relations, and GTM policy. Common branding, author identity, and site-wide feature flags belong in `src/config/config.json`, not another locale config file.
 3. Add a complete dictionary to `src/config/ui.ts`. Its `Record<Locale, UiDictionary>` contract makes missing languages/labels a type error. Keep page headings, navigation, accessibility text, taxonomy tooltips, RSS discovery wording, and supported video headings in that owner.
 4. Add the translated About entry to `src/content/about` as MDX with `title` and `metaTitle` frontmatter. Use the existing entries as structure references; import `SkillTags.astro` at the intended location instead of copying its markup. A registry entry pointing at missing About content fails rather than falling back to another language.
-5. Add the locale's ordered social-image variants to `src/config/social-images.ts`, keeping the 1200×630 card first and giving each variant its correct dimensions, PNG type, and localized alt text. Its keys derive from `Locale`; omit an unconfigured entry entirely rather than adding placeholder image metadata.
+5. Add the locale's single social image to `src/config/social-images.ts`, using the 1200×630 card with its correct dimensions, PNG type, and localized alt text. Its keys derive from `Locale`; omit an unconfigured entry entirely rather than adding placeholder image metadata.
 
 ## Shared owners
 
