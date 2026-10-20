@@ -1,4 +1,5 @@
 ---
+translationKey: embracing-failure
 title: Fracasar no siempre es algo malo
 description: Descubre por qué es crucial reconocer nuestros errores y abrazar el fracaso como una herramienta para el crecimiento.
 pubDate: 2023-11-15

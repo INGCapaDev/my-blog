@@ -1,4 +1,5 @@
 ---
+translationKey: react-reusability
 title: "Reutilización en React: Explorando 3 patrones comunes"
 description: "Descubre la esencia de los patrones de reutilización en React, esenciales para crear interfaces de usuario eficientes. Explora tres patrones clave: componentes personalizados, funciones de utilidad y hooks personalizados; y aprende cómo identificar e implementarlos de manera efectiva."
 pubDate: 2024-03-15

@@ -1,4 +1,5 @@
 ---
+translationKey: user-stories
 title: "Unlocking the Power of User Stories: A Guide for Every Developer"
 description: Discover the significance of user stories in agile methodologies with this comprehensive guide. Learn what user stories are, how to create them effectively, and why they're essential for developers and professionals across various industries.
 pubDate: 2024-02-23

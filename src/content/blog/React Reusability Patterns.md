@@ -1,4 +1,5 @@
 ---
+translationKey: react-reusability
 title: "React Reusability: Exploring 3 common patterns"
 description: Discover the essence of React reusability patterns, essential for crafting efficient user interfaces. Explore three key patterns – custom components, utility functions, and custom hooks – and learn how to identify and implement them effectively.
 pubDate: 2024-03-15

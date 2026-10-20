@@ -1,4 +1,5 @@
 ---
+translationKey: active-reading
 title: 'Deja de olvidar lo que lees: Domina el arte de la lectura activa'
 description: ¿Tienes dificultades para recordar lo que lees? Descubre técnicas simples pero poderosas para involucrarte activamente con tu lectura, retener más conocimiento y hacer que tu tiempo leyendo realmente cuente. Aprende cómo dejar de absorber información de manera pasiva y comienza a retenerla hoy mismo.
 pubDate: 2024-09-23

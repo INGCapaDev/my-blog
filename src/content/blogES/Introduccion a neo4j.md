@@ -1,4 +1,5 @@
 ---
+translationKey: neo4j-introduction
 title: 'Neo4j Essentials: Navegando en el mundo de las bases de datos de grafos'
 description: Explora Neo4j, la innovadora base de datos de grafos, y desbloquea el poder de los datos interconectados. Desde su arquitectura flexible hasta el transformador lenguaje de consulta Cypher, Neo4j Essentials es una introducción a las bases de datos de grafos.
 pubDate: 2024-03-02

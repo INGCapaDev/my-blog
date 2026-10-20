@@ -1,4 +1,5 @@
 ---
+translationKey: active-reading
 title: 'Stop Forgetting What You Read: Master the Art of Active Reading'
 description: Struggling to remember what you read? Discover simple yet powerful techniques to actively engage with your reading, retain more knowledge, and make your time spent reading truly count. Learn how to stop passively absorbing information and start retaining it today!
 pubDate: 2024-09-23

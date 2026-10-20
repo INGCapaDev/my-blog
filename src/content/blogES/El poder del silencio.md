@@ -1,4 +1,5 @@
 ---
+translationKey: power-of-silence
 title: El poder del silencio
 description: Descubre la importancia del silencio en la vida cotidiana y como puede influir positivamente en distintos aspectos de esta.
 pubDate: 2023-11-25

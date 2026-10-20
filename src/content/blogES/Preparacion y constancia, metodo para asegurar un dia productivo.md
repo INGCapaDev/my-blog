@@ -1,4 +1,5 @@
 ---
+translationKey: productive-day
 title: 'Preparación + Constancia: El Método que Uso para Asegurar un Día Productivo'
 description: ¿Sabías que un día productivo comienza la noche anterior? Descubre mi rutina diaria y cómo pequeños hábitos pueden transformar tu enfoque y energía cada día.
 pubDate: 2024-11-26

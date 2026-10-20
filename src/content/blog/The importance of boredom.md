@@ -1,4 +1,5 @@
 ---
+translationKey: boredom-benefits
 title: The Hidden Benefits of Boredom
 description: Learn about the benefits of boredom, how it can boost creativity, mental balance, and self-reflection. Discover some practical tips to turn boredom into opportunities for personal growth and well-being.
 pubDate: 2024-07-01

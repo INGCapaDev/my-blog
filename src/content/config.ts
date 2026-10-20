@@ -5,6 +5,7 @@ const postSchema = z.object({
   description: z.string(),
   pubDate: z.coerce.date(),
   updatedDate: z.coerce.date().optional(),
+  translationKey: z.string().min(1).optional(),
   categories: z.array(z.string()).default(['others']),
   tags: z.array(z.string()).default(['others']),
   authors: z.array(z.string()).default(['ingcapadev']),
