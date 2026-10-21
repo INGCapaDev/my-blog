@@ -2,7 +2,11 @@
 const { title } = Astro.props;
 ---
 
-<div class="prose prose-green prose-md md:prose-lg min-w-full">
-  <h1 class="text-3xl font-bold">{title}</h1>
-  <slot />
-</div>
+<section>
+  <h1 class="mb-10 text-3xl font-semibold tracking-tight">{title}</h1>
+  <div
+    class="prose prose-zinc max-w-none text-base leading-7 dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-h2:mb-4 prose-h2:mt-8 prose-h2:text-xl prose-h3:text-lg"
+  >
+    <slot />
+  </div>
+</section>

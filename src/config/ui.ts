@@ -45,13 +45,13 @@ export const ui = {
     featuredVideosTitle: 'Latest videos on YouTube:',
     taxonomy: {
       tags: {
-        title: 'Tags:',
-        detailTitle: 'Tag:',
+        title: 'Tags',
+        detailTitle: 'Tag',
         linkTitle: 'View posts with the tag:',
       },
       categories: {
-        title: 'Categories:',
-        detailTitle: 'Category:',
+        title: 'Categories',
+        detailTitle: 'Category',
         linkTitle: 'View posts with the tag:',
       },
     },
@@ -76,13 +76,13 @@ export const ui = {
     featuredVideosTitle: 'Latest videos on YouTube:',
     taxonomy: {
       tags: {
-        title: 'Etiquetas:',
-        detailTitle: 'Etiqueta:',
+        title: 'Etiquetas',
+        detailTitle: 'Etiqueta',
         linkTitle: 'Ver publicaciones con esta etiqueta:',
       },
       categories: {
-        title: 'Categorias:',
-        detailTitle: 'Categoria:',
+        title: 'Categorias',
+        detailTitle: 'Categoria',
         linkTitle: 'View posts with the tag:',
       },
     },

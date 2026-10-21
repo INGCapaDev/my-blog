@@ -9,7 +9,7 @@ import config from '@config/config.json';
 import type { Locale } from '@config/locales';
 import { localizedPath } from '@utils/localized-path';
 import { slugify } from '@utils/slug';
-import Code from '@components/mdx/Code.astro';
+import CodeCopy from '@components/CodeCopy.astro';
 
 interface Props {
   post: Post;
@@ -59,9 +59,11 @@ const { Content } = await post.render();
         </div>
       </div>
     </div>
-    <div class="prose prose-zinc max-w-none dark:prose-invert">
-      <Content components={{ pre: Code }} />
-    </div>
+    <CodeCopy locale={locale}>
+      <div class="prose prose-zinc max-w-none dark:prose-invert">
+        <Content />
+      </div>
+    </CodeCopy>
     <div class="mt-8">
       {
         tags?.map((tag) => (

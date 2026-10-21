@@ -1,0 +1,158 @@
+---
+import type { Locale } from '@config/locales';
+import CopyIcon from '@icons/CopyIcon.astro';
+import CheckIcon from '@icons/CheckIcon.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const labels = {
+  en: {
+    copy: 'Copy code',
+    success: 'Code copied.',
+    failure: 'Unable to copy. Select and copy the code manually.',
+  },
+  es: {
+    copy: 'Copiar código',
+    success: 'Código copiado.',
+    failure: 'No se pudo copiar. Selecciona y copia el código manualmente.',
+  },
+} satisfies Record<Locale, { copy: string; success: string; failure: string }>;
+
+const { copy, success, failure } = labels[Astro.props.locale];
+---
+
+<div data-code-copy data-copy-success={success} data-copy-failure={failure}>
+  <template data-code-copy-controls>
+    <div class="code-copy-controls">
+      <span class="sr-only" role="status" aria-live="polite"></span>
+      <button type="button" aria-label={copy} title={copy}>
+        <span class="code-copy-icon" aria-hidden="true"><CopyIcon /></span>
+        <span class="code-copy-check" aria-hidden="true"><CheckIcon /></span>
+      </button>
+    </div>
+  </template>
+  <slot />
+</div>
+
+<script>
+  interface CopyMessages {
+    success: string;
+    failure: string;
+  }
+
+  function enhanceCodeBlock(pre: HTMLPreElement, template: HTMLTemplateElement, messages: CopyMessages) {
+    if (pre.dataset.copyEnhanced === 'true') return;
+
+    const code = pre.querySelector('code');
+    if (!code || code.parentElement !== pre) return;
+
+    const controls = document.importNode(template.content, true);
+    const status = controls.querySelector<HTMLElement>('[role="status"]');
+    const button = controls.querySelector('button');
+    if (!status || !button) throw new Error('Code copy template requires a status and button.');
+
+    let copying = false;
+    let resetTimer: ReturnType<typeof setTimeout> | undefined;
+
+    button.addEventListener('click', async () => {
+      if (copying) return;
+
+      copying = true;
+      clearTimeout(resetTimer);
+      button.removeAttribute('data-copied');
+      button.setAttribute('aria-busy', 'true');
+      status.textContent = '';
+      status.classList.add('sr-only');
+
+      try {
+        await navigator.clipboard.writeText(code.textContent!);
+        status.textContent = messages.success;
+        button.setAttribute('data-copied', 'true');
+        resetTimer = setTimeout(() => button.removeAttribute('data-copied'), 2000);
+      } catch {
+        status.textContent = messages.failure;
+        status.classList.remove('sr-only');
+      } finally {
+        copying = false;
+        button.removeAttribute('aria-busy');
+      }
+    });
+
+    const block = document.createElement('div');
+    block.className = 'code-copy-block';
+    pre.before(block);
+    block.append(controls, pre);
+    pre.dataset.copyEnhanced = 'true';
+  }
+
+  function initializeCodeCopy() {
+    for (const container of document.querySelectorAll<HTMLElement>('[data-code-copy]')) {
+      const { copySuccess, copyFailure } = container.dataset;
+      const template = container.querySelector('template[data-code-copy-controls]');
+      if (!(template instanceof HTMLTemplateElement) || copySuccess === undefined || copyFailure === undefined) {
+        throw new Error('Code copy container requires a template and localized messages.');
+      }
+
+      const messages: CopyMessages = { success: copySuccess, failure: copyFailure };
+      for (const pre of container.querySelectorAll<HTMLPreElement>('pre.astro-code')) {
+        enhanceCodeBlock(pre, template, messages);
+      }
+    }
+  }
+
+  initializeCodeCopy();
+  document.addEventListener('astro:page-load', initializeCodeCopy);
+</script>
+
+<style is:global>
+  [data-code-copy] .code-copy-block {
+    position: relative;
+    margin-block: 1.5em;
+  }
+
+  [data-code-copy] .code-copy-controls {
+    @apply absolute right-2 top-2 z-10 text-sm;
+  }
+
+  [data-code-copy] .code-copy-controls [role='status'] {
+    @apply text-zinc-600 dark:text-zinc-400;
+  }
+
+  [data-code-copy] .code-copy-controls [role='status']:not(.sr-only) {
+    @apply absolute right-0 top-full mt-1 rounded-md bg-white p-2 shadow-md dark:bg-zinc-900;
+    width: min(20rem, calc(100vw - 4rem));
+  }
+
+  [data-code-copy] .code-copy-controls button {
+    @apply flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-md text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800;
+  }
+
+  [data-code-copy] .code-copy-controls svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  [data-code-copy] .code-copy-check {
+    @apply hidden text-green-700 dark:text-green-400;
+  }
+
+  [data-code-copy] button[data-copied] .code-copy-icon {
+    display: none;
+  }
+
+  [data-code-copy] button[data-copied] .code-copy-check {
+    display: inline-flex;
+  }
+
+  [data-code-copy] .code-copy-controls button:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-zinc-500;
+  }
+
+  [data-code-copy] .code-copy-block > pre {
+    margin-block: 0;
+    min-height: 3.75rem;
+    padding-right: 4rem;
+  }
+</style>

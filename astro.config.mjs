@@ -21,9 +21,11 @@ export default defineConfig({
     }),
   },
   markdown: {
-    drafts: true,
     shikiConfig: {
-      theme: 'material-theme-palenight',
+      themes: {
+        light: 'vitesse-light',
+        dark: 'kanagawa-dragon',
+      },
       wrap: true,
     },
   },
@@ -33,14 +35,7 @@ export default defineConfig({
         foward: ['dataLayer.push'],
       },
     }),
-    mdx({
-      syntaxHighlight: 'shiki',
-      shikiConfig: {
-        theme: 'material-theme-palenight',
-        wrap: true,
-      },
-      drafts: true,
-    }),
+    mdx(),
     Compress({
       HTML: {
         removeAttributeQuotes: false,
